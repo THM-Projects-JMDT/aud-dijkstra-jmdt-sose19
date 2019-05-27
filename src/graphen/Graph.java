@@ -9,6 +9,9 @@ public class Graph implements IGraph {
     private ArrayList<Edge> edges;
 
     public Graph() {
+
+        //wieso hatten wir hash? Arraylist ist doch in der regel einfacher?...
+
         nodes = new ArrayList<>();
         edges = new ArrayList<>();
     }
@@ -47,6 +50,8 @@ public class Graph implements IGraph {
         findShortestPath(durchlaufen,start,end,p);
         return p;
     }
+
+    // Hatte schon mal angefangen aber nicht fertig geworden :D
 
     private Edge findShortestPath(ArrayList<Node> durchlaufen, Node akt, Node end, Path p) {
         for(Edge e:edges){
