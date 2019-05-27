@@ -11,6 +11,6 @@ public class Edge {
     }
 
     private void calculateDistance() {
-        this.distance = Math.sqrt(Math.pow(b.x - a.x, 2) + Math.pow(b.y - a.y, 2));
+        this.distance = Math.sqrt(Math.pow(b.getX() - a.getX(), 2) + Math.pow(b.getY() - a.getY(), 2));
     }
 }
