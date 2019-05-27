@@ -28,4 +28,13 @@ public class Edge {
 
 
     }
+
+    @Override
+    public String toString() {
+        return "Edge{" +
+                "a=" + a +
+                ", b=" + b +
+                ", distance=" + distance +
+                '}';
+    }
 }
