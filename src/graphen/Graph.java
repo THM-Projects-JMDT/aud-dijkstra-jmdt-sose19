@@ -27,6 +27,10 @@ public class Graph implements IGraph {
         nodes.add(n);
     }
 
+    public void addNode(int x, int y) {
+        nodes.add( new Node(x,y));
+    }
+
     @Override
     public void link(Node a, Node b) {
         edges.add(new Edge(a, b));
