@@ -16,6 +16,7 @@ public class TestUI {
         g1.link(n3,n1);
         g1.link(n1,n5);
         g1.link(n2,n5);
+        System.out.println(g1.findShortestPath(n0,n0).toString());
     }
 
 

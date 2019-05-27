@@ -1,24 +1,25 @@
 package graphen;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
 public class Graph implements IGraph {
-    private Set<Node> nodes;
-    private Set<Edge> edges;
+    private ArrayList<Node> nodes;
+    private ArrayList<Edge> edges;
 
     public Graph() {
-        nodes = new HashSet<>();
-        edges = new HashSet<>();
+        nodes = new ArrayList<>();
+        edges = new ArrayList<>();
     }
 
     @Override
-    public Set<Node> getNodes() {
+    public ArrayList<Node> getNodes() {
         return nodes;
     }
 
     @Override
-    public Set<Edge> getEdges() {
+    public ArrayList<Edge> getEdges() {
         return edges;
     }
 
@@ -40,9 +41,32 @@ public class Graph implements IGraph {
 
     @Override
     public Path findShortestPath(Node start, Node end) {
-        //TODO
+        Path p = new Path();
+        ArrayList<Node> durchlaufen = new ArrayList<>();
+        durchlaufen.add(start);
+        findShortestPath(start,start,end,p);
+        return p;
+    }
+
+    private Edge findShortestPath(ArrayList<Node> durchlaufen, Node akt, Node end, Path p) {
+        for(Edge e:edges){
+            if(e.contains(akt)){
+                Node x=e.otherNode(akt);
+                if(x!=null && x!=start){
+                    if(findShortestPath(start,x,end,p)!=null)
+                        p.addEdge(e);
+                    if(x.equals(end)){
+                        return e;
+                    }
+
+                }
+
+            }
+
+        }
         return null;
     }
+
 
     @Override
     public void fillAdjMatrix() {
