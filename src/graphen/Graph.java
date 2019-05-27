@@ -44,7 +44,7 @@ public class Graph implements IGraph {
         Path p = new Path();
         ArrayList<Node> durchlaufen = new ArrayList<>();
         durchlaufen.add(start);
-        findShortestPath(start,start,end,p);
+        findShortestPath(durchlaufen,start,end,p);
         return p;
     }
 
