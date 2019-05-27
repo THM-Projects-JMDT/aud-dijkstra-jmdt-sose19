@@ -1,4 +1,4 @@
-package dijkstra;
+package graphen;
 
 import java.util.Set;
 

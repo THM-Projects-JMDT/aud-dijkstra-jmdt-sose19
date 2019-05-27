@@ -1,4 +1,4 @@
-package dijkstra;
+package graphen;
 
 import java.util.ArrayList;
 import java.util.List;

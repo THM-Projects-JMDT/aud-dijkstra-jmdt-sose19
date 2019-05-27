@@ -1,4 +1,4 @@
-package dijkstra;
+package graphen;
 
 public class Node {
     private int x;

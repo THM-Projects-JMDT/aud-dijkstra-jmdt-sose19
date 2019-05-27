@@ -1,4 +1,4 @@
-package dijkstra;
+package graphen;
 
 public class Edge {
     private Node a;
