@@ -1,6 +1,6 @@
 # THM-DGIFu
 
-* Lisa Tabe Beate Soboth
+* Lisa Soboth
 * Timon Pellekoorne
 * Max Stephan
 * David Martschenko
