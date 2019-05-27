@@ -4,6 +4,6 @@
 * Timon Pellekoorne
 * Max Stephan
 * David Martschenko
-* Jannik Lapp: unbekannt (wird nachgereicht)
+* Jannik Lapp
 
 
