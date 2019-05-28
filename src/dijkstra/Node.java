@@ -16,8 +16,16 @@ public class Node implements Comparable<Node> {
         return this.y;
     }
 
+    public void setDistance(double distance) {
+        this.distance = distance;
+    }
+
     public double getDistance() {
         return distance;
+    }
+
+    public void setPred(Node pred) {
+        this.pred = pred;
     }
 
     public Node getPred() {
