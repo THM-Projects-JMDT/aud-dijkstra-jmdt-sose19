@@ -33,9 +33,13 @@ public class Graph implements IGraph {
 
     @Override
     public Path findShortestPath(Node start, Node end) {
-        Node next;
         PriorityQueue<Node> q = new PriorityQueue<>();
-
+        Node next;
+        q.offer(start);
+        while(true) {
+            next = q.poll();
+            Set<Node> neighbours = next.getNeighbours();
+        }
         //TODO
         return null;
     }
