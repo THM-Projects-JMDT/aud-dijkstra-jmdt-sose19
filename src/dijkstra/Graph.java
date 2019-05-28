@@ -33,19 +33,28 @@ public class Graph implements IGraph {
     }
 
     @Override
-    public Path findShortestPath(Node start, Node end) {
+    public Node findShortestPath(Node start, Node end, Path path) {
         PriorityQueue<Node> q = new PriorityQueue<>();
         Node next;
+        start.setDistance(0);
         q.offer(start);
-        while(true) {
+        while(!q.isEmpty()) {
             next = q.poll();
-            Set<Node> neighbours = next.getNeighbours();
+            if(next.equals(end)) {
+                return end;
+            }
+            Map<Node, Edge> neighbours = getNeighbours(next);
+            for(Node n : neighbours.keySet()) {
+                n.setDistance(next.getDistance() + neighbours.get(n).getDistance());
+                n.setPred(next);
+                q.offer(n);
+            }
         }
         //TODO
         return null;
     }
 
-    private Set<Node> getNeighbors(Node n) {
+    private Set<Node> getNeighbours(Node n) {
         return edges.stream()
                 .filter(e -> e.contains(n))
                 .map(e -> e.other(n))
