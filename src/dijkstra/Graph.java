@@ -1,7 +1,7 @@
 package dijkstra;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Graph implements IGraph {
     private Set<Node> nodes;
@@ -33,9 +33,31 @@ public class Graph implements IGraph {
     }
 
     @Override
-    public Path findShortestPath(Node start, Node end) {
+    public Node findShortestPath(Node start, Node end, Path path) {
+        PriorityQueue<Node> q = new PriorityQueue<>();
+        Node next;
+        start.setDistance(0);
+        q.offer(start);
+        while(!q.isEmpty()) {
+            next = q.poll();
+            if(next.equals(end)) {
+                return end;
+            }
+            Map<Node, Edge> neighbours = getNeighbours(next);
+            for(Node n : neighbours.keySet()) {
+                n.setDistance(next.getDistance() + neighbours.get(n).getDistance());
+                n.setPred(next);
+                q.offer(n);
+            }
+        }
         //TODO
         return null;
+    }
+
+    private Map<Node, Edge> getNeighbours(Node n) {
+        return edges.stream()
+                .filter(e -> e.contains(n))
+                .collect(Collectors.toMap(e -> e.other(n), e -> e));
     }
 
     @Override
