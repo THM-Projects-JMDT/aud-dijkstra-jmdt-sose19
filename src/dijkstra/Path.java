@@ -1,14 +1,12 @@
 package dijkstra;
 
-import graphen.Edge;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class Path {
-    private List<graphen.Edge> edges = new ArrayList<>();
+    private List<Edge> edges = new ArrayList<>();
 
-    public List<graphen.Edge> getPath() {
+    public List<Edge> getPath() {
         return edges;
     }
 
