@@ -25,8 +25,10 @@ public class Edge {
         if(x.equals(a)&&x.equals(b))
             return null;
         return x.equals(a)?b:a;
+    }
 
-
+    public Node getlinkedNode(){
+        return b;
     }
 
     @Override

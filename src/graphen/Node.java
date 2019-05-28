@@ -1,10 +1,13 @@
 package graphen;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Node {
     private int x;
     private int y;
+    // dürfte schlauer sein die jeweiligen kanten hier zu speichern
+    private ArrayList<Edge> edges;
 
     public int getX() {
         return this.x;
@@ -17,6 +20,15 @@ public class Node {
     public Node(int x, int y) {
         this.x = x;
         this.y = y;
+        edges = new ArrayList<>();
+    }
+
+    public ArrayList<Edge> getEdges() {
+        return edges;
+    }
+
+    public void addEdge(Node n){
+        edges.add(new Edge(this,n));
     }
 
     @Override

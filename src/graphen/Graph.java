@@ -6,24 +6,15 @@ import java.util.Set;
 
 public class Graph implements IGraph {
     private ArrayList<Node> nodes;
-    private ArrayList<Edge> edges;
 
     public Graph() {
-
         //wieso hatten wir hash? Arraylist ist doch in der regel einfacher?...
-
         nodes = new ArrayList<>();
-        edges = new ArrayList<>();
     }
 
     @Override
     public ArrayList<Node> getNodes() {
         return nodes;
-    }
-
-    @Override
-    public ArrayList<Edge> getEdges() {
-        return edges;
     }
 
     @Override
@@ -39,7 +30,8 @@ public class Graph implements IGraph {
 
     @Override
     public void link(Node a, Node b) {
-        edges.add(new Edge(a, b));
+      a.addEdge(b);
+      b.addEdge(a);
     }
 
     @Override
@@ -54,10 +46,8 @@ public class Graph implements IGraph {
     // Hatte schon mal angefangen aber nicht fertig geworden :D
 
     private Edge findShortestPath(ArrayList<Node> durchlaufen, Node akt, Node end, Path p) {
-        for(Edge e:edges){
-            if(e.contains(akt)){
-                Node x=e.otherNode(akt);
-                if(x!=null && x!=start){
+        for(Edge e:akt.getEdges()){
+            if(e.getlinkedNode()!=durchlaufen){
                     if(findShortestPath(start,x,end,p)!=null)
                         p.addEdge(e);
                     if(x.equals(end)){
@@ -65,8 +55,6 @@ public class Graph implements IGraph {
                     }
 
                 }
-
-            }
 
         }
         return null;
