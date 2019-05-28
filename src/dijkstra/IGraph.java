@@ -8,6 +8,6 @@ public interface IGraph {
     Set<Node> getNodes();
     Set<Edge> getEdges();
     void link(Node a, Node b);
-    Node findShortestPath(Node start, Node end, Path path);
+    List<Node> findShortestPath(Node start, Node end, Path path);
     void fillAdjMatrix();
 }
