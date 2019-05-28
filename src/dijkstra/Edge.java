@@ -5,6 +5,10 @@ public class Edge {
     private Node b;
     private double distance;
 
+    public double getDistance() {
+        return distance;
+    }
+
     public Edge(Node a, Node b){
         this.a = a;
         this.b = b;
@@ -26,4 +30,6 @@ public class Edge {
         if(b.equals(n)) return a;
         return null;
     }
+
+
 }
