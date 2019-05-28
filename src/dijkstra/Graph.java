@@ -33,7 +33,7 @@ public class Graph implements IGraph {
     }
 
     @Override
-    public Node findShortestPath(Node start, Node end, Path path) {
+    public List<Node> findShortestPath(Node start, Node end, Path path) {
         PriorityQueue<Node> q = new PriorityQueue<>();
         Node next;
         start.setDistance(0);
@@ -41,27 +41,47 @@ public class Graph implements IGraph {
         while(!q.isEmpty()) {
             next = q.poll();
             if(next.equals(end)) {
-                return end;
+                List<Node> list = new ArrayList<>();
+                list.add(end);
+                return getAllPred(end, list);
             }
             Map<Node, Edge> neighbours = getNeighbours(next);
             for(Node n : neighbours.keySet()) {
+                double newDistance = next.getDistance() + neighbours.get(n).getDistance();
+                if(newDistance < n.getDistance()) {
+                    n.setPred(next);
+                    n.setDistance(newDistance);
+                    q.offer(n);
+                }
+                /*
                 n.setDistance(next.getDistance() + neighbours.get(n).getDistance());
                 n.setPred(next);
                 q.offer(n);
+
+                 */
             }
         }
-        //TODO
-        return null;
+        //TODO: Path
+        return new ArrayList<Node>();
     }
 
     private Map<Node, Edge> getNeighbours(Node n) {
         return edges.stream()
-                .filter(e -> e.contains(n))
+                .filter(e -> (e.contains(n) && !e.contains(n.getPred())))
                 .collect(Collectors.toMap(e -> e.other(n), e -> e));
     }
 
     @Override
     public void fillAdjMatrix() {
         //TODO
+    }
+    private List<Node> getAllPred(Node n, List<Node> l)  {
+        if(n.getPred() == null) {
+            Collections.reverse(l);
+            return l;
+        }
+        Node pred = n.getPred();
+        l.add(pred);
+        return getAllPred(pred, l);
     }
 }
