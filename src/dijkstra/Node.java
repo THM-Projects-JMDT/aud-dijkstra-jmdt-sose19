@@ -5,6 +5,8 @@ public class Node {
     private int y;
     private static int counter = 0;
     private int num;
+    private double distance;
+    private Node pred;
 
     public int getX() {
         return this.x;
@@ -12,6 +14,14 @@ public class Node {
 
     public int getY() {
         return this.y;
+    }
+
+    public double getDistance() {
+        return distance;
+    }
+
+    public Node getPred() {
+        return pred;
     }
 
     public int getNum() {
@@ -22,5 +32,7 @@ public class Node {
         this.x = x;
         this.y = y;
         this.num = counter++;
+        this.distance = Double.MAX_VALUE;
+        this.pred = null;
     }
 }
