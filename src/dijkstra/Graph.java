@@ -53,12 +53,6 @@ public class Graph implements IGraph {
                     n.setDistance(newDistance);
                     q.offer(n);
                 }
-                /*
-                n.setDistance(next.getDistance() + neighbours.get(n).getDistance());
-                n.setPred(next);
-                q.offer(n);
-
-                 */
             }
         }
         //TODO: Path
