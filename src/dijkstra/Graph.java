@@ -1,6 +1,7 @@
 package dijkstra;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Graph implements IGraph {
     private Set<Node> nodes;
@@ -42,6 +43,13 @@ public class Graph implements IGraph {
         }
         //TODO
         return null;
+    }
+
+    private Set<Node> getNeighbors(Node n) {
+        return edges.stream()
+                .filter(e -> e.contains(n))
+                .map(e -> e.other(n))
+                .collect(Collectors.toSet());
     }
 
     @Override
