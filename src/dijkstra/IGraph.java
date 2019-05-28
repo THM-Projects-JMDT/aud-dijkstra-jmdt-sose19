@@ -1,6 +1,7 @@
 package dijkstra;
 
 import java.util.List;
+import java.util.Set;
 
 public interface IGraph {
     void addNode(Node n);

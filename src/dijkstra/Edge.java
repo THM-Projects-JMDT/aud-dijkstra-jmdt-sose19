@@ -8,6 +8,7 @@ public class Edge {
     public Edge(Node a, Node b){
         this.a = a;
         this.b = b;
+        calculateDistance();
     }
 
     private void calculateDistance() {
