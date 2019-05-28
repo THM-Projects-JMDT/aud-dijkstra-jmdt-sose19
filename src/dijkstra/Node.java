@@ -62,6 +62,9 @@ public class Node implements Comparable<Node> {
         if(this.x == otherNode.x && this.y == otherNode.y) {
             return true;
         }
-        return true;
+        return false;
+    }
+    public String toString() {
+        return "[" + this.num + "]";
     }
 }
