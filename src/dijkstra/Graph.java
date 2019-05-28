@@ -1,7 +1,6 @@
 package dijkstra;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class Graph implements IGraph {
     private Set<Node> nodes;
@@ -34,6 +33,9 @@ public class Graph implements IGraph {
 
     @Override
     public Path findShortestPath(Node start, Node end) {
+        Node next;
+        PriorityQueue<Node> q = new PriorityQueue<>();
+
         //TODO
         return null;
     }
