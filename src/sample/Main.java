@@ -36,13 +36,18 @@ public class Main extends Application {
             List<Circle> circles = new ArrayList<>();
             List<Line> lines = new ArrayList<>();
 
+            Graph graph = new Graph();
+
+            //Knoten erzeugen
             Node node1 = new Node(100,100);
             Node node2 = new Node(300,300);
 
             circles.add(new Circle(node1.getX(),node1.getY(),10));
+            graph.addNode(node1);
             circles.add(new Circle(node2.getX(),node2.getY(),10));
+            graph.addNode(node2);
 
-
+            graph.link(node1,node2);
             lines.add(new Line(node1.getX(),node1.getY(),node2.getX(),node2.getY()));
 
             for (Circle circle :circles) {
