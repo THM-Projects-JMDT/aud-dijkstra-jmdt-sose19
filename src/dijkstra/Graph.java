@@ -54,11 +54,10 @@ public class Graph implements IGraph {
         return null;
     }
 
-    private Set<Node> getNeighbours(Node n) {
+    private Map<Node, Edge> getNeighbors(Node n) {
         return edges.stream()
                 .filter(e -> e.contains(n))
-                .map(e -> e.other(n))
-                .collect(Collectors.toSet());
+                .collect(Collectors.toMap(e -> e.other(n), e -> e));
     }
 
     @Override
