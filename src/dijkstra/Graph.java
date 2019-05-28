@@ -54,7 +54,7 @@ public class Graph implements IGraph {
         return null;
     }
 
-    private Map<Node, Edge> getNeighbors(Node n) {
+    private Map<Node, Edge> getNeighbours(Node n) {
         return edges.stream()
                 .filter(e -> e.contains(n))
                 .collect(Collectors.toMap(e -> e.other(n), e -> e));
