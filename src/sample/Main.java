@@ -49,7 +49,7 @@ public class Main extends Application {
             Node node3 = new Node(405, 300);
 
             Circle circle1 = new Circle(node1.getX(),node1.getY(),5);
-            Label labelCircle = new Label(node1.getLabel());
+            Label labelCircle = new Label(String.valueOf(node1.getLabel()));
             circles.add(circle1);
             graph.addNode(node1);
 
@@ -94,6 +94,7 @@ public class Main extends Application {
     private void drawCircle(Circle circle, Label label){
         label.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         label.layoutXProperty().bind((circle.centerXProperty().add(10)));
+        label.layoutYProperty().bind((circle.centerYProperty().add(-10)));
     }
 
     private void drawLine(Line line, Label label) {
