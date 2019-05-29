@@ -46,8 +46,8 @@ public class Node implements Comparable<Node> {
 
     public int compareTo(Node other) {
         double diff = this.distance - other.distance;
-        if(Math.round(diff) > 0) return 1;
-        if(Math.round(diff) < 0) return -1;
+        if(diff > 0.001) return 1;
+        if(diff < -0.001) return -1;
         return 0;
     }
 
