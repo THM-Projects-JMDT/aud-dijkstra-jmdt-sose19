@@ -28,8 +28,10 @@ public class Graph implements IGraph {
     }
 
     @Override
-    public void link(Node a, Node b) {
-        edges.add(new Edge(a, b));
+    public Edge link(Node a, Node b){
+        Edge e = new Edge(a, b);
+        edges.add(e);
+        return e;
     }
 
     @Override

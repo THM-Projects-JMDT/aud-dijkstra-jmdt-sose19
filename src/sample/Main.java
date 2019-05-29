@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -47,7 +48,8 @@ public class Main extends Application {
             circles.add(new Circle(node2.getX(),node2.getY(),10));
             graph.addNode(node2);
 
-            graph.link(node1,node2);
+            Edge e = graph.link(node1,node2);
+            TextField tf = new TextField(e.getDistance() + "");
             lines.add(new Line(node1.getX(),node1.getY(),node2.getX(),node2.getY()));
 
             for (Circle circle :circles) {
@@ -59,6 +61,8 @@ public class Main extends Application {
                 group.getChildren().add(l);
             }
 
+            group.getChildren().add(tf);
+            
             primaryStage.setScene(scene);
             primaryStage.show();
 
