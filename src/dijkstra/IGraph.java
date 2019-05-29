@@ -7,7 +7,7 @@ public interface IGraph {
     void addNode(Node n);
     Set<Node> getNodes();
     Set<Edge> getEdges();
-    void link(Node a, Node b);
+    Edge link(Node a, Node b);
     List<Node> findShortestPath(Node start, Node end, Path path);
     void fillAdjMatrix();
 }

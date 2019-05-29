@@ -5,7 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.Label;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
@@ -50,7 +50,9 @@ public class Main extends Application {
             circles.add(new Circle(node3.getX(),node3.getY(),5));
             graph.addNode(node3);
 
-            graph.link(node1,node2);
+            Edge e = graph.link(node1,node2);
+            String s = Math.round(e.getDistance()) + "";
+            Label label = new Label(s);
             lines.add(new Line(node1.getX(),node1.getY(),node2.getX(),node2.getY()));
             graph.link(node1,node3);
             lines.add(new Line(node1.getX(),node1.getY(),node3.getX(),node3.getY()));
@@ -63,6 +65,8 @@ public class Main extends Application {
                 l.setStrokeWidth(2);
                 group.getChildren().add(l);
             }
+
+            group.getChildren().add(label);
 
             primaryStage.setScene(scene);
             primaryStage.show();
