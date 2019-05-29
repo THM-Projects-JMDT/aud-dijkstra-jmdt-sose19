@@ -40,6 +40,10 @@ public class Graph implements IGraph {
         q.offer(start);
         while(!q.isEmpty()) {
             next = q.poll();
+
+            if(next.getPred() != null) {
+                path.addEdge(new Edge(next, next.getPred()));
+            }
             if(next.equals(end)) {
                 List<Node> list = new ArrayList<>();
                 list.add(end);
