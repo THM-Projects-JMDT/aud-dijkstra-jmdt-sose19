@@ -19,10 +19,7 @@ import dijkstra.*;
 
 import java.io.IOError;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Main extends Application {
 
@@ -32,6 +29,7 @@ public class Main extends Application {
     private List<Label> labeleCircles = new ArrayList<>();
     private List<Label> labelLines = new ArrayList<>();
     private Graph graph = new Graph();
+    private Iterator<Edge> iterator;
 
     @Override
     public void start(Stage primaryStage){
@@ -78,12 +76,6 @@ public class Main extends Application {
             createLine(node6, node9);
             createLine(node6, node8);
 
-            Button button = new Button("Weiter machen");
-            group.getChildren().add(button);
-            button.setOnAction(event -> {
-                lines.get(graph.link(node1,node4)).setStroke(Color.GREEN);
-            });
-
             for (Circle circle :circles) {
                 group.getChildren().add(circle);
             }
@@ -98,6 +90,18 @@ public class Main extends Application {
             for (Label label: labelLines) {
                 group.getChildren().add(label);
             }
+
+            Path path = new Path();
+            graph.findShortestPath(node1, node7,path);
+            iterator = path.getPath().iterator();
+
+            Button button = new Button("Weiter machen");
+            group.getChildren().add(button);
+            button.setOnAction(event -> {
+                if (iterator.hasNext())
+                    lines.get(iterator.next()).setStroke(Color.RED);
+                //System.out.println(iterator.next().toString());
+            });
 
             primaryStage.setScene(scene);
             primaryStage.show();
@@ -119,8 +123,12 @@ public class Main extends Application {
         attachLabelToCircle(circle1,labelCircle);
     }
 
+    private void changeLineColor(Edge e) {
+        lines.get(e).setStroke(Color.GREEN);
+    }
+
     private void createLine(Node node1, Node node2) {
-        Edge e = graph.link(node1,node2);
+        Edge e = graph.link(node1, node2);
         Line line = new Line(node1.getX(),node1.getY(),node2.getX(),node2.getY());
         Label labelLine = new Label(Math.round(e.getDistance()) + "");
         lines.put(e, line);
