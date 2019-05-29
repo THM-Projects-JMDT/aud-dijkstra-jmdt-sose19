@@ -41,13 +41,12 @@ public class Edge {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Edge edge = (Edge) o;
-        if((this.a.equals(edge.a)&&this.b.equals(edge.b))||(this.a.equals(edge.b)&&this.b.equals(edge.a)))
+        if((this.a.equals(edge.a) && this.b.equals(edge.b)) || (this.a.equals(edge.b) && this.b.equals(edge.a)))
             return true;
         return false;
     }
-
     @Override
     public int hashCode() {
-        return Objects.hash(a, b);
+        return Objects.hash(a, b) + Objects.hash(b, a);
     }
 }
