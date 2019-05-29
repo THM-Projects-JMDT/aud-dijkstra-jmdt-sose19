@@ -27,9 +27,9 @@ public class Main extends Application {
     private Map<Edge, Line> lines = new HashMap<>();
     private List<Label> labeleCircles = new ArrayList<>();
     private List<Label> labelLines = new ArrayList<>();
-    private Graph graph = new Graph();
+    private Graph graph;
     private Iterator<Edge> iterator;
-    private Path path = new Path();
+    private Path path;
     private List<Edge> opt;
     private Group group;
 
@@ -45,63 +45,7 @@ public class Main extends Application {
             Parent root = loader.load();
             group = new Group();
             Scene scene = new Scene(group, 1080,720);
-
-            // Buttons:
-
-            Button buttonGo = new Button("Weiter machen");
-            group.getChildren().add(buttonGo);
-
-            Button random = new Button("Neuer Graph");
-            group.getChildren().add(random);
-            random.setTranslateY(30);
-
-            Button standard = new Button("Standard Graph");
-            group.getChildren().add(standard);
-            standard.setTranslateY(60);
-
-
-
-/*
-            scene.setOnMouseClicked(event -> {
-                int x = (int) Math.round(event.getX());
-                int y = (int) Math.round(event.getY());
-                Node n = new Node(x,y);
-                createCircle(n);
-                group.getChildren().add(circles.get(circles.size() - 1));
-            });
-
- */
-
-
-
-
-            buttonGo.setOnAction(event -> {
-                if (iterator.hasNext()) {
-                    markLine(iterator.next(), Color.ORANGERED);
-                } else {
-                    markOptimalPath(opt);
-                }
-            });
-
-
-            random.setOnAction(event -> {
-                Generator g = new Generator();
-                graph=g.generateGraph();
-                for(Node n: graph.getNodes()){
-                    createCircle(n);
-                }
-                for (Edge e: graph.getEdges()){
-                    createLine(e.getA(),e.getB());
-                }
-                newGraph(g.node1,g.node2);
-            });
-
-            standard.setOnAction(event -> {
-               standard();
-            });
-
-
-
+            buttons();
 
             primaryStage.setScene(scene);
             primaryStage.show();
@@ -114,7 +58,60 @@ public class Main extends Application {
         }
     }
 
+
+    private void buttons(){
+        Button buttonGo = new Button("Weiter machen");
+        group.getChildren().add(buttonGo);
+
+        Button random = new Button("Neuer Graph");
+        group.getChildren().add(random);
+        random.setTranslateY(30);
+
+        Button standard = new Button("Standard Graph");
+        group.getChildren().add(standard);
+        standard.setTranslateY(60);
+
+        buttonGo.setOnAction(event -> {
+            if (iterator.hasNext()) {
+                markLine(iterator.next(), Color.ORANGERED);
+            } else {
+                markOptimalPath(opt);
+            }
+        });
+
+
+        random.setOnAction(event -> {
+            Generator g = new Generator();
+            graph = new Graph();
+            graph=g.generateGraph();
+            for(Node n: graph.getNodes()){
+                createCircle(n);
+            }
+            for (Edge e: graph.getEdges()){
+                createLine(e.getA(),e.getB());
+            }
+            newGraph(g.node1,g.node2);
+        });
+
+        standard.setOnAction(event -> {
+            standard();
+        });
+
+        /*
+            scene.setOnMouseClicked(event -> {
+                int x = (int) Math.round(event.getX());
+                int y = (int) Math.round(event.getY());
+                Node n = new Node(x,y);
+                createCircle(n);
+                group.getChildren().add(circles.get(circles.size() - 1));
+            });
+
+ */
+
+    }
+
     private void standard(){
+        graph = new Graph();
         Node node1 = new Node(100,100);
         Node node2 = new Node(350,100);
         Node node3 = new Node(400, 120);
@@ -148,6 +145,9 @@ public class Main extends Application {
     }
 
     private void newGraph(Node n1, Node n2){
+        group.getChildren().removeAll();
+        group.getChildren().clear();
+        buttons();
         for (Circle circle :circles) {
             group.getChildren().add(circle);
         }
@@ -211,7 +211,8 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
 
-        /*Graph g = new Graph();
+        /*
+        Graph g = new Graph();
         Node a = new Node(0,1);
         Node b = new Node(2,2);
         Node c = new Node(3,3);
