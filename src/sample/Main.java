@@ -17,7 +17,6 @@ import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import dijkstra.*;
 
-import java.io.IOError;
 import java.io.IOException;
 import java.util.*;
 
@@ -42,20 +41,20 @@ public class Main extends Application {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("sample.fxml"));
             Parent root = loader.load();
             Group group = new Group();
-            Scene scene = new Scene(group, 600,600);
+            Scene scene = new Scene(group, 1080,720);
 
 
 
             //Knoten erzeugen
             Node node1 = new Node(100,100);
-            Node node2 = new Node(300,100);
-            Node node3 = new Node(400, 100);
-            Node node4 = new Node(200,200);
-            Node node5 = new Node(400, 200);
-            Node node6 = new Node(300,400);
-            Node node7 = new Node(500,300);
-            Node node8 = new Node(100,500);
-            Node node9 = new Node(500,500);
+            Node node2 = new Node(350,100);
+            Node node3 = new Node(400, 120);
+            Node node4 = new Node(205,200);
+            Node node5 = new Node(440, 400);
+            Node node6 = new Node(300,700);
+            Node node7 = new Node(700,290);
+            Node node8 = new Node(600,500);
+            Node node9 = new Node(860,390);
 
             createCircle(node1);
             createCircle(node2);
@@ -92,16 +91,17 @@ public class Main extends Application {
             }
 
             Path path = new Path();
-            graph.findShortestPath(node1, node7, path);
+            List<Edge> opt = graph.findShortestPath(node4, node8, path);
             iterator = path.getPath().iterator();
-            Button button = new Button("Weiter machen");
-            group.getChildren().add(button);
-            button.setOnAction(event -> {
+            Button buttonGo = new Button("Weiter machen");
+            group.getChildren().add(buttonGo);
+            buttonGo.setOnAction(event -> {
                 if (iterator.hasNext()) {
-                    lines.get(iterator.next()).setStroke(Color.RED);
+                    markLine(iterator.next(), Color.RED);
+                } else {
+                    markOptimalPath(opt);
                 }
             });
-
             primaryStage.setScene(scene);
             primaryStage.show();
 
@@ -122,8 +122,9 @@ public class Main extends Application {
         attachLabelToCircle(circle1,labelCircle);
     }
 
-    private void changeLineColor(Edge e) {
-        lines.get(e).setStroke(Color.GREEN);
+    private void markLine(Edge e, Color c) {
+        lines.get(e).setStroke(c);
+        lines.get(e).setStrokeWidth(5);
     }
 
     private void createLine(Node node1, Node node2) {
@@ -147,6 +148,11 @@ public class Main extends Application {
         label.layoutYProperty().bind((line.endYProperty().add(line.startYProperty())).divide(2));
     }
 
+    private void markOptimalPath(List<Edge> edges) {
+        for(Edge e : edges) {
+            markLine(e, Color.GREEN);
+        }
+    }
     public static void main(String[] args) {
         launch(args);
 
@@ -170,7 +176,6 @@ public class Main extends Application {
         g.link(c,f);
         Path path = new Path();
         g.findShortestPath( d, e, path).forEach(System.out::println);
-        path.getPath().forEach(System.out::println);
 
     }
 }

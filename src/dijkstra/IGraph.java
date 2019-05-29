@@ -8,5 +8,5 @@ public interface IGraph {
     Set<Node> getNodes();
     Set<Edge> getEdges();
     Edge link(Node a, Node b);
-    List<Node> findShortestPath(Node start, Node end, Path path);
+    List<Edge> findShortestPath(Node start, Node end, Path path);
 }
