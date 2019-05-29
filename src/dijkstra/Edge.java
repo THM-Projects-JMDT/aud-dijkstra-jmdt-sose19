@@ -1,5 +1,7 @@
 package dijkstra;
 
+import java.util.Objects;
+
 public class Edge {
     private Node a;
     private Node b;
@@ -34,4 +36,18 @@ public class Edge {
         return "{" + this.a + "," + this.b + "}";
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Edge edge = (Edge) o;
+        if((this.a.equals(edge.a)&&this.b.equals(edge.b))||(this.a.equals(edge.b)&&this.b.equals(edge.a)))
+            return true;
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(a, b);
+    }
 }
