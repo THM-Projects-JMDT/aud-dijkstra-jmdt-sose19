@@ -42,7 +42,6 @@ public class Graph implements IGraph {
 
     @Override
     public List<Node> findShortestPath(Node start, Node end, Path path) {
-        reset();
         PriorityQueue<Node> q = new PriorityQueue<>();
         Node next;
         start.setDistance(0);
@@ -68,6 +67,7 @@ public class Graph implements IGraph {
                 }
             }
         }
+        reset();
         return new ArrayList<Node>();
     }
 
@@ -87,6 +87,7 @@ public class Graph implements IGraph {
     private List<Node> getAllPred(Node n, List<Node> l)  {
         if(n.getPred() == null) {
             Collections.reverse(l);
+            reset();
             return l;
         }
         Node pred = n.getPred();
