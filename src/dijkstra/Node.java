@@ -40,7 +40,7 @@ public class Node implements Comparable<Node> {
         return pred;
     }
 
-    public int getLabel() {
+    public char getLabel() {
         return this.label;
     }
 
