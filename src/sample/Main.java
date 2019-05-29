@@ -103,7 +103,10 @@ public class Main extends Application {
             List<Edge> opt = graph.findShortestPath(node7, node2, path);
             iterator = path.getPath().iterator();
             Button buttonGo = new Button("Weiter machen");
+            Button random = new Button("Neuer Graph");
             group.getChildren().add(buttonGo);
+            group.getChildren().add(random);
+            random.setTranslateY(30);
             buttonGo.setOnAction(event -> {
                 if (iterator.hasNext()) {
                     markLine(iterator.next(), Color.RED);
