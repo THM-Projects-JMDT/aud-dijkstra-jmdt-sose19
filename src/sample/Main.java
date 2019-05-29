@@ -92,15 +92,14 @@ public class Main extends Application {
             }
 
             Path path = new Path();
-            graph.findShortestPath(node1, node7,path);
+            graph.findShortestPath(node1, node7, path);
             iterator = path.getPath().iterator();
-
             Button button = new Button("Weiter machen");
             group.getChildren().add(button);
             button.setOnAction(event -> {
-                if (iterator.hasNext())
+                if (iterator.hasNext()) {
                     lines.get(iterator.next()).setStroke(Color.RED);
-                //System.out.println(iterator.next().toString());
+                }
             });
 
             primaryStage.setScene(scene);
