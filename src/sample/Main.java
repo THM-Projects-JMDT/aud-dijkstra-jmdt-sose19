@@ -48,8 +48,10 @@ public class Main extends Application {
             Node node2 = new Node(300,300);
             Node node3 = new Node(405, 300);
 
-            circles.add(new Circle(node1.getX(),node1.getY(),5));
+            Circle circle1 = new Circle(node1.getX(),node1.getY(),5);
+            circles.add(circle1);
             graph.addNode(node1);
+
             circles.add(new Circle(node2.getX(),node2.getY(),5));
             graph.addNode(node2);
             circles.add(new Circle(node3.getX(),node3.getY(),5));
