@@ -74,7 +74,7 @@ public class Node implements Comparable<Node>, Cloneable {
 
     @Override
     public String toString() {
-        return "[" + this.label + "]";
+        return this.label + ":" + (this.distance == Double.MAX_VALUE ? "∞" : String.valueOf(Math.round(this.distance)));
     }
 
     @Override

@@ -43,8 +43,17 @@ public class Main extends Application {
             Group group = new Group();
             Scene scene = new Scene(group, 1080,720);
 
+/*
+            scene.setOnMouseClicked(event -> {
+                int x = (int) Math.round(event.getX());
+                int y = (int) Math.round(event.getY());
+                Node n = new Node(x,y);
+                createCircle(n);
+                group.getChildren().add(circles.get(circles.size() - 1));
+            });
 
 
+*/
             //Knoten erzeugen
             Node node1 = new Node(100,100);
             Node node2 = new Node(350,100);
@@ -91,7 +100,7 @@ public class Main extends Application {
             }
 
             Path path = new Path();
-            List<Edge> opt = graph.findShortestPath(node4, node8, path);
+            List<Edge> opt = graph.findShortestPath(node7, node2, path);
             iterator = path.getPath().iterator();
             Button buttonGo = new Button("Weiter machen");
             group.getChildren().add(buttonGo);
