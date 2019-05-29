@@ -106,7 +106,7 @@ public class Main extends Application {
             group.getChildren().add(buttonGo);
             buttonGo.setOnAction(event -> {
                 if (iterator.hasNext()) {
-                    markLine(iterator.next(), Color.RED);
+                    markLine(iterator.next(), Color.ORANGERED);
                 } else {
                     markOptimalPath(opt);
                 }
@@ -169,7 +169,7 @@ public class Main extends Application {
 
     private void markOptimalPath(List<Edge> edges) {
         for(Edge e : edges) {
-            markLine(e, Color.GREEN);
+            markLine(e, Color.BLUE);
         }
     }
     public static void main(String[] args) {
