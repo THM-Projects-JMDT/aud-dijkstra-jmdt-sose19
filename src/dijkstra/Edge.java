@@ -30,6 +30,8 @@ public class Edge {
         if(b.equals(n)) return a;
         return null;
     }
-
+    public String toString() {
+        return "{" + this.a + "," + this.b + "}";
+    }
 
 }
