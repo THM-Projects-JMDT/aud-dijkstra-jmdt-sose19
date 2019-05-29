@@ -49,6 +49,7 @@ public class Main extends Application {
             Node node3 = new Node(405, 300);
 
             Circle circle1 = new Circle(node1.getX(),node1.getY(),5);
+            Label labelCircle = new Label(node1.getLabel());
             circles.add(circle1);
             graph.addNode(node1);
 
@@ -58,12 +59,12 @@ public class Main extends Application {
             graph.addNode(node3);
 
             Edge e = graph.link(node1,node2);
-            String s = Math.round(e.getDistance()) + "";
 
             Line line = new Line(node1.getX(),node1.getY(),node2.getX(),node2.getY());
-            Label label = new Label(s);
+            Label labelLine = new Label(Math.round(e.getDistance()) + "");
 
-            drawLine(line, label);
+            drawLine(line, labelLine);
+            drawCircle(circle1, labelCircle);
 
             lines.add(line);
 
@@ -76,7 +77,8 @@ public class Main extends Application {
                 group.getChildren().add(l);
             }
 
-            group.getChildren().add(label);
+            group.getChildren().add(labelCircle);
+            group.getChildren().add(labelLine);
 
             primaryStage.setScene(scene);
             primaryStage.show();
@@ -87,6 +89,11 @@ public class Main extends Application {
         catch(IOException e){
             e.printStackTrace();
         }
+    }
+
+    private void drawCircle(Circle circle, Label label){
+        label.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        label.layoutXProperty().bind((circle.centerXProperty().add(10)));
     }
 
     private void drawLine(Line line, Label label) {
