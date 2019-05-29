@@ -103,10 +103,7 @@ public class Main extends Application {
             List<Edge> opt = graph.findShortestPath(node7, node2, path);
             iterator = path.getPath().iterator();
             Button buttonGo = new Button("Weiter machen");
-            Button random = new Button("Neuer Graph");
             group.getChildren().add(buttonGo);
-            group.getChildren().add(random);
-            random.setTranslateY(30);
             buttonGo.setOnAction(event -> {
                 if (iterator.hasNext()) {
                     markLine(iterator.next(), Color.RED);
@@ -114,6 +111,16 @@ public class Main extends Application {
                     markOptimalPath(opt);
                 }
             });
+
+            Button random = new Button("Neuer Graph");
+            group.getChildren().add(random);
+            random.setTranslateY(30);
+            random.setOnAction(event -> {
+
+            });
+
+
+
             primaryStage.setScene(scene);
             primaryStage.show();
 
@@ -168,7 +175,7 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
 
-        Graph g = new Graph();
+        /*Graph g = new Graph();
         Node a = new Node(0,1);
         Node b = new Node(2,2);
         Node c = new Node(3,3);
@@ -188,6 +195,6 @@ public class Main extends Application {
         g.link(c,f);
         Path path = new Path();
         g.findShortestPath( d, e, path).forEach(System.out::println);
-
+        */
     }
 }
