@@ -41,14 +41,19 @@ public class Main extends Application {
             //Knoten erzeugen
             Node node1 = new Node(100,100);
             Node node2 = new Node(300,300);
+            Node node3 = new Node(405, 300);
 
-            circles.add(new Circle(node1.getX(),node1.getY(),10));
+            circles.add(new Circle(node1.getX(),node1.getY(),5));
             graph.addNode(node1);
-            circles.add(new Circle(node2.getX(),node2.getY(),10));
+            circles.add(new Circle(node2.getX(),node2.getY(),5));
             graph.addNode(node2);
+            circles.add(new Circle(node3.getX(),node3.getY(),5));
+            graph.addNode(node3);
 
             graph.link(node1,node2);
             lines.add(new Line(node1.getX(),node1.getY(),node2.getX(),node2.getY()));
+            graph.link(node1,node3);
+            lines.add(new Line(node1.getX(),node1.getY(),node3.getX(),node3.getY()));
 
             for (Circle circle :circles) {
                 group.getChildren().add(circle);
@@ -71,6 +76,29 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        launch(args);
+       // launch(args);
+
+        Graph g = new Graph();
+        Node a = new Node(0,1);
+        Node b = new Node(2,2);
+        Node c = new Node(3,3);
+        Node d = new Node(2, 3);
+        Node e = new Node(4,4);
+        Node f = new Node(5,1);
+        Node h = new Node(6,1);
+        g.addNode(a);
+        g.addNode(b);
+        g.addNode(c);
+        g.link(a,b);
+        g.link(b,c);
+        g.link(a,d);
+        g.link(c,d);
+        g.link(c, e);
+        g.link(f,h);
+        g.link(c,f);
+        Path path = new Path();
+        g.findShortestPath( d, e, path).forEach(System.out::println);
+        path.getPath().forEach(System.out::println);
+
     }
 }
