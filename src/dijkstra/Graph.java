@@ -67,6 +67,7 @@ public class Graph implements IGraph {
                 }
             }
         }
+        reset();
         return new ArrayList<Node>();
     }
 
@@ -76,9 +77,17 @@ public class Graph implements IGraph {
                 .collect(Collectors.toMap(e -> e.other(n), e -> e));
     }
 
+    private void reset() {
+        nodes.forEach(n -> {
+            n.setDistance(Double.MAX_VALUE);
+            n.setPred(null);
+        });
+    }
+
     private List<Node> getAllPred(Node n, List<Node> l)  {
         if(n.getPred() == null) {
             Collections.reverse(l);
+            reset();
             return l;
         }
         Node pred = n.getPred();
