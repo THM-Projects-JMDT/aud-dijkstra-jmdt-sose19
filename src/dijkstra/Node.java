@@ -1,6 +1,6 @@
 package dijkstra;
 
-public class Node implements Comparable<Node> {
+public class Node implements Comparable<Node>, Cloneable {
     private int x;
     private int y;
     private static int counter = 65;
@@ -66,5 +66,14 @@ public class Node implements Comparable<Node> {
     }
     public String toString() {
         return "[" + this.label + "]";
+    }
+    @Override
+    public Node clone() {
+        try {
+            return (Node)super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

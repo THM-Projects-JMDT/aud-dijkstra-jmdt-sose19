@@ -50,7 +50,7 @@ public class Graph implements IGraph {
             next = q.poll();
 
             if(next.getPred() != null) {
-                path.addEdge(new Edge(next, next.getPred()));
+                path.addEdge(new Edge(next.clone(), next.getPred().clone()));
             }
             if(next.equals(end)) {
                 List<Node> list = new ArrayList<>();
@@ -67,6 +67,7 @@ public class Graph implements IGraph {
                 }
             }
         }
+        reset();
         return new ArrayList<Node>();
     }
 
@@ -76,9 +77,17 @@ public class Graph implements IGraph {
                 .collect(Collectors.toMap(e -> e.other(n), e -> e));
     }
 
+    private void reset() {
+        nodes.forEach(n -> {
+            n.setDistance(Double.MAX_VALUE);
+            n.setPred(null);
+        });
+    }
+
     private List<Node> getAllPred(Node n, List<Node> l)  {
         if(n.getPred() == null) {
             Collections.reverse(l);
+            reset();
             return l;
         }
         Node pred = n.getPred();
