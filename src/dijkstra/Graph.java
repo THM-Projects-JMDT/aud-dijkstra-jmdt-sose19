@@ -50,7 +50,7 @@ public class Graph implements IGraph {
             next = q.poll();
 
             if(next.getPred() != null) {
-                path.addEdge(new Edge(next.getPred(), next));
+                path.addEdge(new Edge(next.getPred().clone(), next.clone()));
             }
             if(next.equals(end)) {
                 List<Edge> list = new ArrayList<>();

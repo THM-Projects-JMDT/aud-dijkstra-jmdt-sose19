@@ -1,5 +1,7 @@
 package dijkstra;
 
+import java.util.Objects;
+
 public class Node implements Comparable<Node>, Cloneable {
     private int x;
     private int y;
@@ -64,9 +66,17 @@ public class Node implements Comparable<Node>, Cloneable {
         }
         return false;
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash( 2 * x, 3 * y);
+    }
+
+    @Override
     public String toString() {
         return "[" + this.label + "]";
     }
+
     @Override
     public Node clone() {
         try {
