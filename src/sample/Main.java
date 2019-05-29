@@ -2,10 +2,15 @@ package sample;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
@@ -56,8 +61,8 @@ public class Main extends Application {
             Line line = new Line(node1.getX(),node1.getY(),node2.getX(),node2.getY());
             Label label = new Label(s);
 
-            label.layoutXProperty().bind((line.endXProperty().add(line.startXProperty())).divide(2));
-            label.layoutYProperty().bind((line.endYProperty().add(line.startYProperty())).divide(2));
+            drawLine(line, label);
+
             lines.add(line);
 
             for (Circle circle :circles) {
@@ -80,6 +85,12 @@ public class Main extends Application {
         catch(IOException e){
             e.printStackTrace();
         }
+    }
+
+    private void drawLine(Line line, Label label) {
+        label.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        label.layoutXProperty().bind((line.endXProperty().add(line.startXProperty())).divide(2));
+        label.layoutYProperty().bind((line.endYProperty().add(line.startYProperty())).divide(2));
     }
 
     public static void main(String[] args) {
