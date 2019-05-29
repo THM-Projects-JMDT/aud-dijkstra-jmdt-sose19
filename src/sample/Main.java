@@ -6,6 +6,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -19,13 +20,15 @@ import dijkstra.*;
 import java.io.IOError;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Main extends Application {
 
     private Stage primaryStage;
     private List<Circle> circles = new ArrayList<>();
-    private List<Line> lines = new ArrayList<>();
+    private Map<Edge, Line> lines = new HashMap<>();
     private List<Label> labeleCircles = new ArrayList<>();
     private List<Label> labelLines = new ArrayList<>();
     private Graph graph = new Graph();
@@ -75,13 +78,17 @@ public class Main extends Application {
             createLine(node6, node9);
             createLine(node6, node8);
 
-
+            Button button = new Button("Weiter machen");
+            group.getChildren().add(button);
+            button.setOnAction(event -> {
+                lines.get(graph.link(node1,node4)).setStroke(Color.GREEN);
+            });
 
             for (Circle circle :circles) {
                 group.getChildren().add(circle);
             }
 
-            for (Line l:lines) {
+            for (Line l:lines.values()) {
                 l.setStrokeWidth(2);
                 group.getChildren().add(l);
             }
@@ -116,7 +123,7 @@ public class Main extends Application {
         Edge e = graph.link(node1,node2);
         Line line = new Line(node1.getX(),node1.getY(),node2.getX(),node2.getY());
         Label labelLine = new Label(Math.round(e.getDistance()) + "");
-        lines.add(line);
+        lines.put(e, line);
         labelLines.add(labelLine);
         attachLabelToLine(line,labelLine);
     }
