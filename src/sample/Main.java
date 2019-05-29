@@ -52,10 +52,13 @@ public class Main extends Application {
 
             Edge e = graph.link(node1,node2);
             String s = Math.round(e.getDistance()) + "";
+
+            Line line = new Line(node1.getX(),node1.getY(),node2.getX(),node2.getY());
             Label label = new Label(s);
-            lines.add(new Line(node1.getX(),node1.getY(),node2.getX(),node2.getY()));
-            graph.link(node1,node3);
-            lines.add(new Line(node1.getX(),node1.getY(),node3.getX(),node3.getY()));
+
+            label.layoutXProperty().bind((line.endXProperty().add(line.startXProperty())).divide(2));
+            label.layoutYProperty().bind((line.endYProperty().add(line.startYProperty())).divide(2));
+            lines.add(line);
 
             for (Circle circle :circles) {
                 group.getChildren().add(circle);
@@ -80,7 +83,7 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-       // launch(args);
+        launch(args);
 
         Graph g = new Graph();
         Node a = new Node(0,1);
