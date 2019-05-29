@@ -21,6 +21,14 @@ public class Edge {
         this.distance = Math.sqrt(Math.pow(b.getX() - a.getX(), 2) + Math.pow(b.getY() - a.getY(), 2));
     }
 
+    public Node getA() {
+        return a;
+    }
+
+    public Node getB() {
+        return b;
+    }
+
     public boolean contains(Node n) {
         if(a.equals(n)) return true;
         if(b.equals(n)) return true;

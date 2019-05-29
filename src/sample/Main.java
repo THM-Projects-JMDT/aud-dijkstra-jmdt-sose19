@@ -29,6 +29,9 @@ public class Main extends Application {
     private List<Label> labelLines = new ArrayList<>();
     private Graph graph = new Graph();
     private Iterator<Edge> iterator;
+    private Path path = new Path();
+    private List<Edge> opt;
+    private Group group;
 
     @Override
     public void start(Stage primaryStage){
@@ -40,8 +43,23 @@ public class Main extends Application {
         try{
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("sample.fxml"));
             Parent root = loader.load();
-            Group group = new Group();
+            group = new Group();
             Scene scene = new Scene(group, 1080,720);
+
+            // Buttons:
+
+            Button buttonGo = new Button("Weiter machen");
+            group.getChildren().add(buttonGo);
+
+            Button random = new Button("Neuer Graph");
+            group.getChildren().add(random);
+            random.setTranslateY(30);
+
+            Button standard = new Button("Standard Graph");
+            group.getChildren().add(standard);
+            standard.setTranslateY(60);
+
+
 
 /*
             scene.setOnMouseClicked(event -> {
@@ -52,58 +70,11 @@ public class Main extends Application {
                 group.getChildren().add(circles.get(circles.size() - 1));
             });
 
+ */
 
-*/
-            //Knoten erzeugen
-            Node node1 = new Node(100,100);
-            Node node2 = new Node(350,100);
-            Node node3 = new Node(400, 120);
-            Node node4 = new Node(205,200);
-            Node node5 = new Node(440, 400);
-            Node node6 = new Node(300,700);
-            Node node7 = new Node(700,290);
-            Node node8 = new Node(600,500);
-            Node node9 = new Node(860,390);
 
-            createCircle(node1);
-            createCircle(node2);
-            createCircle(node3);
-            createCircle(node4);
-            createCircle(node5);
-            createCircle(node6);
-            createCircle(node7);
-            createCircle(node8);
-            createCircle(node9);
 
-            createLine(node1, node4);
-            createLine(node2, node4);
-            createLine(node2, node3);
-            createLine(node4, node6);
-            createLine(node6, node7);
-            createLine(node7, node9);
-            createLine(node6, node9);
-            createLine(node6, node8);
 
-            for (Circle circle :circles) {
-                group.getChildren().add(circle);
-            }
-
-            for (Line l:lines.values()) {
-                l.setStrokeWidth(2);
-                group.getChildren().add(l);
-            }
-            for (Label label: labeleCircles) {
-                group.getChildren().add(label);
-            }
-            for (Label label: labelLines) {
-                group.getChildren().add(label);
-            }
-
-            Path path = new Path();
-            List<Edge> opt = graph.findShortestPath(node7, node2, path);
-            iterator = path.getPath().iterator();
-            Button buttonGo = new Button("Weiter machen");
-            group.getChildren().add(buttonGo);
             buttonGo.setOnAction(event -> {
                 if (iterator.hasNext()) {
                     markLine(iterator.next(), Color.ORANGERED);
@@ -112,12 +83,23 @@ public class Main extends Application {
                 }
             });
 
-            Button random = new Button("Neuer Graph");
-            group.getChildren().add(random);
-            random.setTranslateY(30);
-            random.setOnAction(event -> {
 
+            random.setOnAction(event -> {
+                Generator g = new Generator();
+                graph=g.generateGraph();
+                for(Node n: graph.getNodes()){
+                    createCircle(n);
+                }
+                for (Edge e: graph.getEdges()){
+                    createLine(e.getA(),e.getB());
+                }
+                newGraph(g.node1,g.node2);
             });
+
+            standard.setOnAction(event -> {
+               standard();
+            });
+
 
 
 
@@ -131,6 +113,60 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
+
+    private void standard(){
+        Node node1 = new Node(100,100);
+        Node node2 = new Node(350,100);
+        Node node3 = new Node(400, 120);
+        Node node4 = new Node(205,200);
+        Node node5 = new Node(440, 400);
+        Node node6 = new Node(300,700);
+        Node node7 = new Node(700,290);
+        Node node8 = new Node(600,500);
+        Node node9 = new Node(860,390);
+
+        createCircle(node1);
+        createCircle(node2);
+        createCircle(node3);
+        createCircle(node4);
+        createCircle(node5);
+        createCircle(node6);
+        createCircle(node7);
+        createCircle(node8);
+        createCircle(node9);
+
+        createLine(node1, node4);
+        createLine(node2, node4);
+        createLine(node2, node3);
+        createLine(node4, node6);
+        createLine(node6, node7);
+        createLine(node7, node9);
+        createLine(node6, node9);
+        createLine(node6, node8);
+
+        newGraph(node2,node7);
+    }
+
+    private void newGraph(Node n1, Node n2){
+        for (Circle circle :circles) {
+            group.getChildren().add(circle);
+        }
+
+        for (Line l:lines.values()) {
+            l.setStrokeWidth(2);
+            group.getChildren().add(l);
+        }
+        for (Label label: labeleCircles) {
+            group.getChildren().add(label);
+        }
+        for (Label label: labelLines) {
+            group.getChildren().add(label);
+        }
+        path=new Path();
+        opt = graph.findShortestPath(n1, n2, path);
+        iterator = path.getPath().iterator();
+    }
+
 
     private void createCircle(Node node) {
         Circle circle1 = new Circle(node.getX(),node.getY(),5);
