@@ -41,7 +41,7 @@ public class Graph implements IGraph {
     }
 
     @Override
-    public List<Node> findShortestPath(Node start, Node end, Path path) {
+    public List<Edge> findShortestPath(Node start, Node end, Path path) {
         PriorityQueue<Node> q = new PriorityQueue<>();
         Node next;
         start.setDistance(0);
@@ -53,8 +53,7 @@ public class Graph implements IGraph {
                 path.addEdge(new Edge(next.getPred(), next));
             }
             if(next.equals(end)) {
-                List<Node> list = new ArrayList<>();
-                list.add(end);
+                List<Edge> list = new ArrayList<>();
                 return getAllPred(end, list);
             }
             Map<Node, Edge> neighbours = getNeighbours(next);
@@ -68,7 +67,7 @@ public class Graph implements IGraph {
             }
         }
         reset();
-        return new ArrayList<Node>();
+        return new ArrayList<Edge>();
     }
 
     private Map<Node, Edge> getNeighbours(Node n) {
@@ -84,14 +83,14 @@ public class Graph implements IGraph {
         });
     }
 
-    private List<Node> getAllPred(Node n, List<Node> l)  {
+    private List<Edge> getAllPred(Node n, List<Edge> l)  {
         if(n.getPred() == null) {
             Collections.reverse(l);
             reset();
             return l;
         }
-        Node pred = n.getPred();
-        l.add(pred);
-        return getAllPred(pred, l);
+       Edge e = new Edge(n.getPred(), n);
+       l.add(e);
+       return getAllPred(n.getPred(), l);
     }
 }
