@@ -9,5 +9,4 @@ public interface IGraph {
     Set<Edge> getEdges();
     Edge link(Node a, Node b);
     List<Node> findShortestPath(Node start, Node end, Path path);
-    void fillAdjMatrix();
 }

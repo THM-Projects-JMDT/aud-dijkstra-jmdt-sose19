@@ -76,10 +76,6 @@ public class Graph implements IGraph {
                 .collect(Collectors.toMap(e -> e.other(n), e -> e));
     }
 
-    @Override
-    public void fillAdjMatrix() {
-        //TODO
-    }
     private List<Node> getAllPred(Node n, List<Node> l)  {
         if(n.getPred() == null) {
             Collections.reverse(l);
