@@ -3,9 +3,6 @@ package dijkstra;
 public class TestUI {
     public static void main(String[] args) {
 
-        // Jpg des Bildes im projekt -> macht es einfacher sollte zum testen passen
-
-        /*
         Graph g1 = new Graph();
         Node n0= g1.addNode(0,0);
         Node n1= g1.addNode(2,2);
@@ -20,7 +17,8 @@ public class TestUI {
         g1.link(n3,n1);
         g1.link(n1,n5);
         g1.link(n2,n5);
-        System.out.println(g1.findShortestPath(n0,n0).toString());*/
+        Path p = new Path();
+        System.out.println(g1.findShortestPath(n4,n3,p));
     }
 
 
