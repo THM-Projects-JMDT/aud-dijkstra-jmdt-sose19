@@ -3,10 +3,18 @@ package dijkstra;
 public class Node implements Comparable<Node> {
     private int x;
     private int y;
-    private static int counter = 0;
-    private int num;
+    private static int counter = 65;
+    private char label;
     private double distance;
     private Node pred;
+
+    public Node(int x, int y) {
+        this.x = x;
+        this.y = y;
+        this.label = (char)counter++;
+        this.distance = Double.MAX_VALUE;
+        this.pred = null;
+    }
 
     public int getX() {
         return this.x;
@@ -32,16 +40,8 @@ public class Node implements Comparable<Node> {
         return pred;
     }
 
-    public int getNum() {
-        return this.num;
-    }
-
-    public Node(int x, int y) {
-        this.x = x;
-        this.y = y;
-        this.num = counter++;
-        this.distance = Double.MAX_VALUE;
-        this.pred = null;
+    public int getLabel() {
+        return this.label;
     }
 
     public int compareTo(Node other) {
@@ -65,6 +65,6 @@ public class Node implements Comparable<Node> {
         return false;
     }
     public String toString() {
-        return "[" + this.num + "]";
+        return "[" + this.label + "]";
     }
 }
