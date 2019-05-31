@@ -76,6 +76,26 @@ public class Main extends Application {
         }
     }
 
+    private void startbutton(){
+        Button loop = new Button("Start");
+        topGroup.getChildren().add(loop);
+        loop.setTranslateY(90);
+        looping2.running=false;
+
+        loop.setOnAction(event -> {
+            if(looping) {
+                loop.setText("Stop");
+                looping2= new Looping(this);
+                looping2.start();
+            } else {
+                loop.setText("Start");
+                looping2.running=false;
+            }
+
+            looping = !looping;
+        });
+    }
+
 
     private void buttons(){
         note.setTranslateX(500);
@@ -93,10 +113,7 @@ public class Main extends Application {
         topGroup.getChildren().add(standard);
         standard.setTranslateY(60);
 
-        Button loop = new Button("Start");
-        topGroup.getChildren().add(loop);
-        loop.setTranslateY(90);
-        looping2.running=false;
+
 
         buttonGo.setOnAction(event -> {
             gogo();
@@ -122,18 +139,7 @@ public class Main extends Application {
             standard();
         });
 
-        loop.setOnAction(event -> {
-            if(looping) {
-                loop.setText("Stop");
-                looping2= new Looping(this);
-                looping2.start();
-            } else {
-                loop.setText("Start");
-                looping2.running=false;
-            }
 
-            looping = !looping;
-        });
         /*
             scene.setOnMouseClicked(event -> {
                 int x = (int) Math.round(event.getX());
@@ -236,6 +242,7 @@ public class Main extends Application {
         opt = graph.findShortestPath(n1, n2, path);
         edgeIterator = path.getPath().iterator();
         setIterator = path.getUpdatedNodes().iterator();
+        startbutton();
 
         circles.get(n1).setRadius(7);
         circles.get(n2).setRadius(7);
