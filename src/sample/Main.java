@@ -41,7 +41,7 @@ public class Main extends Application {
     private boolean switcher;
     private boolean först;
     private boolean looping=true;
-    private Looping looping2;
+    private Looping looping2= new Looping(this);
     private Label note = new Label("");
 
     @Override
@@ -85,7 +85,7 @@ public class Main extends Application {
         Button buttonGo = new Button("Weiter machen");
         topGroup.getChildren().add(buttonGo);
 
-        Button random = new Button("Neuer Graph");
+        Button random = new Button("Random Graph");
         topGroup.getChildren().add(random);
         random.setTranslateY(30);
 
@@ -94,8 +94,9 @@ public class Main extends Application {
         standard.setTranslateY(60);
 
         Button loop = new Button("Start");
-        group.getChildren().add(loop);
+        topGroup.getChildren().add(loop);
         loop.setTranslateY(90);
+        looping2.running=false;
 
         buttonGo.setOnAction(event -> {
             gogo();
@@ -104,7 +105,6 @@ public class Main extends Application {
 
         random.setOnAction(event -> {
             clear();
-            Node.resetCounter();
             Generator g = new Generator();
             graph = new Graph();
             graph=g.generateGraph();
@@ -125,7 +125,7 @@ public class Main extends Application {
         loop.setOnAction(event -> {
             if(looping) {
                 loop.setText("Stop");
-                looping2=new Looping(this);
+                looping2= new Looping(this);
                 looping2.start();
             } else {
                 loop.setText("Start");
@@ -147,6 +147,7 @@ public class Main extends Application {
     }
 
     private void clear(){
+        Node.resetCounter();
         circles = new HashMap<>();
         lines = new HashMap<>();
         labelCircles = new HashMap<>();
