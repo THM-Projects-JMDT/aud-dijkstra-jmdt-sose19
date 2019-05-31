@@ -1,7 +1,6 @@
 package sample;
 
 import javafx.application.Application;
-import javafx.beans.property.ObjectProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
@@ -11,7 +10,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
@@ -28,19 +26,25 @@ public class Main extends Application {
     private Map<Edge, Line> lines = new HashMap<>();
     private Map<Node, Circle> circles = new HashMap<>();
     private Map<Circle, Label> labelCircles = new HashMap<>();
-    private List<Label> labelLines = new ArrayList<>();
+    private Map<Line,Label> labelLines = new HashMap<>();
     private Graph graph;
     private Iterator<Edge> edgeIterator;
     private Iterator<Set<Node>> setIterator;
     private Path path;
     private List<Edge> opt;
-    private Group group;
+    private Pane group;
     private Group topGroup;
     private Group rightGroup;
     private boolean switcher;
     private boolean först;
     private boolean looping;
     private Label note = new Label("");
+    private Node from;
+    private Node to;
+    private Node start;
+    private Node end;
+    private boolean startSelected;
+    private boolean connect;
 
     @Override
     public void start(Stage primaryStage){
@@ -55,13 +59,22 @@ public class Main extends Application {
             BorderPane borderPane = new BorderPane();
             topGroup = new Group();
             rightGroup = new Group();
-            group = new Group();
+            group = new Pane();
             createCaption();
             borderPane.setTop(topGroup);
             borderPane.setRight(rightGroup);
             borderPane.setCenter(group);
-            Scene scene = new Scene(borderPane, 1920,720);
+            Scene scene = new Scene(borderPane, 1920,1080);
             buttons();
+            graph = new Graph();
+            group.setOnMouseClicked(event -> {
+                int x = (int) Math.round(event.getX());
+                int y = (int) Math.round(event.getY());
+                Node n = new Node(x,y);
+                createCircle(n);
+                group.getChildren().add(circles.get(n));
+                group.getChildren().add(labelCircles.get(circles.get(n)));
+            });
 
             primaryStage.setScene(scene);
             primaryStage.show();
@@ -91,6 +104,8 @@ public class Main extends Application {
         topGroup.getChildren().add(standard);
         standard.setTranslateY(60);
 
+        Button start = new Button("Weiter");
+        topGroup.getChildren().add(start);
         /*Button loop = new Button("Start");
         topGroup.getChildren().add(standard);
         standard.setTranslateY(90);*/
@@ -153,7 +168,7 @@ public class Main extends Application {
         circles = new HashMap<>();
         lines = new HashMap<>();
         labelCircles = new HashMap<>();
-        labelLines = new ArrayList<>();
+        labelLines = new HashMap<>();
         group.getChildren().clear();
         group.getChildren().removeAll();
         buttons();
@@ -218,7 +233,7 @@ public class Main extends Application {
         for (Label label: labelCircles.values()) {
             group.getChildren().add(label);
         }
-        for (Label label: labelLines) {
+        for (Label label: labelLines.values()) {
             group.getChildren().add(label);
         }
         path=new Path();
@@ -232,8 +247,54 @@ public class Main extends Application {
 
 
     private void createCircle(Node node) {
-        Circle circle = new Circle(node.getX(),node.getY(),5);
+        Circle circle = new Circle(node.getX(),node.getY(),10);
         Label labelCircle = new Label(String.valueOf(node.toString()));
+        circle.setOnMouseEntered(event -> {
+            if(circle.getFill().equals(Color.LIGHTGREEN) || circle.getFill().equals(Color.ORANGERED)) {
+                return;
+            }
+            circle.setFill(Color.GREY);
+        });
+        circle.setOnMouseExited(event -> {
+            if(circle.getFill().equals(Color.LIGHTGREEN) || circle.getFill().equals(Color.ORANGERED)) {
+                return;
+            }
+            circle.setFill(Color.BLACK);
+        });
+        circle.setOnMouseClicked(event -> {
+            if(!connect) {
+                from = node;
+                circle.setFill(Color.LIGHTGREEN);
+                connect = true;
+            } else {
+                to = node;
+                if(to == from) {
+                    if(!startSelected) {
+                        start = node;
+                    } else {
+                        end = node;
+                        path = new Path();
+                        opt = graph.findShortestPath(start, end, path);
+                        edgeIterator = path.getPath().iterator();
+                        setIterator = path.getUpdatedNodes().iterator();
+                    }
+                    connect = false;
+                    circle.setFill(Color.ORANGERED);
+                    startSelected = !startSelected;
+                    event.consume();
+                    return;
+                }
+                createLine(from, to);
+                group.getChildren().add(lines.get(new Edge(from, to)));
+                group.getChildren().add(labelLines.get(lines.get(new Edge(from, to))));
+                circles.get(from).setFill(Color.BLACK);
+                from = null;
+                to = null;
+                connect = false;
+
+            }
+            event.consume();
+        });
         circles.put(node, circle);
         graph.addNode(node);
         labelCircles.put(circle, labelCircle);
@@ -260,9 +321,12 @@ public class Main extends Application {
     private void createLine(Node node1, Node node2) {
         Edge e = graph.link(node1, node2);
         Line line = new Line(node1.getX(),node1.getY(),node2.getX(),node2.getY());
+        line.setOnMouseClicked(event -> {
+            event.consume();
+        });
         Label labelLine = new Label(Math.round(e.getDistance()) + "");
         lines.put(e, line);
-        labelLines.add(labelLine);
+        labelLines.put(line, labelLine);
         attachLabelToLine(line,labelLine);
     }
 
