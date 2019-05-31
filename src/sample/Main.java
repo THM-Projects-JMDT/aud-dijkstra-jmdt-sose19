@@ -180,7 +180,7 @@ public class Main extends Application {
 
     private void createCircle(Node node) {
         Circle circle1 = new Circle(node.getX(),node.getY(),5);
-        Label labelCircle = new Label(String.valueOf(node.getLabel()));
+        Label labelCircle = new Label(String.valueOf(node.toString()));
         circles.add(circle1);
         graph.addNode(node);
         labeleCircles.add(labelCircle);
