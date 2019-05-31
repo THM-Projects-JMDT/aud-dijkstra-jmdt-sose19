@@ -43,9 +43,11 @@ public class Graph implements IGraph {
     @Override
     public List<Edge> findShortestPath(Node start, Node end, Path path) {
         PriorityQueue<Node> q = new PriorityQueue<>();
+        Set<Node> startSet = new HashSet<>();
         Node next;
         start.setDistance(0);
-        path.addNodeSet(Set.of(start));
+        startSet.add(start.clone());
+        path.addNodeSet(startSet);
         q.offer(start);
         while(!q.isEmpty()) {
             next = q.poll();

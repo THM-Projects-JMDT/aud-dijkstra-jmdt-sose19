@@ -23,15 +23,19 @@ import java.util.*;
 public class Main extends Application {
 
     private Stage primaryStage;
-    private List<Circle> circles = new ArrayList<>();
     private Map<Edge, Line> lines = new HashMap<>();
-    private List<Label> labeleCircles = new ArrayList<>();
+    private Map<Node, Circle> circles = new HashMap<>();
+    private Map<Circle, Label> labelCircles = new HashMap<>();
     private List<Label> labelLines = new ArrayList<>();
     private Graph graph;
-    private Iterator<Edge> iterator;
+    private Iterator<Edge> edgeIterator;
+    private Iterator<Set<Node>> setIterator;
     private Path path;
     private List<Edge> opt;
     private Group group;
+    private boolean switcher;
+    private boolean först;
+    private Label note = new Label("");
 
     @Override
     public void start(Stage primaryStage){
@@ -60,6 +64,10 @@ public class Main extends Application {
 
 
     private void buttons(){
+        note.setTranslateX(500);
+        group.getChildren().add(note);
+        switcher = true;
+        först = true;
         Button buttonGo = new Button("Weiter machen");
         group.getChildren().add(buttonGo);
 
@@ -72,11 +80,16 @@ public class Main extends Application {
         standard.setTranslateY(60);
 
         buttonGo.setOnAction(event -> {
-            if (iterator.hasNext()) {
-                markLine(iterator.next(), Color.ORANGERED);
+            note.setText("");
+            if (edgeIterator.hasNext() && switcher && !först) {
+                markLine(edgeIterator.next(), Color.ORANGERED);
+            } else if (setIterator.hasNext() ) {
+                updateLabels(setIterator.next());
+                först = false;
             } else {
                 markOptimalPath(opt);
             }
+            switcher = !switcher;
         });
 
 
@@ -114,13 +127,14 @@ public class Main extends Application {
     }
 
     private void clear(){
-        circles = new ArrayList<>();
+        circles = new HashMap<>();
         lines = new HashMap<>();
-        labeleCircles = new ArrayList<>();
+        labelCircles = new HashMap<>();
         labelLines = new ArrayList<>();
         group.getChildren().clear();
         group.getChildren().removeAll();
         buttons();
+        note.setText("");
     }
 
     private void standard(){
@@ -158,7 +172,7 @@ public class Main extends Application {
     }
 
     private void newGraph(Node n1, Node n2){
-        for (Circle circle :circles) {
+        for (Circle circle :circles.values()) {
             group.getChildren().add(circle);
         }
 
@@ -166,7 +180,7 @@ public class Main extends Application {
             l.setStrokeWidth(2);
             group.getChildren().add(l);
         }
-        for (Label label: labeleCircles) {
+        for (Label label: labelCircles.values()) {
             group.getChildren().add(label);
         }
         for (Label label: labelLines) {
@@ -174,22 +188,39 @@ public class Main extends Application {
         }
         path=new Path();
         opt = graph.findShortestPath(n1, n2, path);
-        iterator = path.getPath().iterator();
+        edgeIterator = path.getPath().iterator();
+        setIterator = path.getUpdatedNodes().iterator();
+
+        circles.get(n1).setFill(Color.YELLOW);
+        circles.get(n1).setStroke(Color.BLACK);
+        circles.get(n2).setFill(Color.YELLOW);
+        circles.get(n2).setStroke(Color.BLACK);
     }
 
 
     private void createCircle(Node node) {
-        Circle circle1 = new Circle(node.getX(),node.getY(),5);
+        Circle circle = new Circle(node.getX(),node.getY(),5);
         Label labelCircle = new Label(String.valueOf(node.toString()));
-        circles.add(circle1);
+        circles.put(node, circle);
         graph.addNode(node);
-        labeleCircles.add(labelCircle);
-        attachLabelToCircle(circle1,labelCircle);
+        labelCircles.put(circle, labelCircle);
+        attachLabelToCircle(circle,labelCircle);
     }
 
     private void markLine(Edge e, Color c) {
         lines.get(e).setStroke(c);
         lines.get(e).setStrokeWidth(5);
+    }
+
+    private void updateLabels(Set<Node> nodes) {
+        if (nodes.isEmpty()) {
+            note.setText("keine Nachbarn");
+            return;
+        }
+        nodes.forEach( n -> {
+            labelCircles.get(circles.get(n)).setText(n.toString());
+            System.out.println(n.toString());
+        });
     }
 
     private void createLine(Node node1, Node node2) {
@@ -242,6 +273,8 @@ public class Main extends Application {
         g.link(c,f);
         Path path = new Path();
         g.findShortestPath( d, e, path).forEach(System.out::println);
-        */
+        System.out.println(path.toString());
+
+         */
     }
 }

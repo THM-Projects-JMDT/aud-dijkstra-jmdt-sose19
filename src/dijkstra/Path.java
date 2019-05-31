@@ -12,6 +12,10 @@ public class Path {
         return edges;
     }
 
+    public List<Set<Node>> getUpdatedNodes() {
+        return updatedNodes;
+    }
+
     public void addNodeSet(Set<Node> nodeSet) {
         updatedNodes.add(nodeSet);
     }
