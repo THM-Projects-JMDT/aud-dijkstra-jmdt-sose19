@@ -41,6 +41,9 @@ public class Node implements Comparable<Node>, Cloneable {
     public Node getPred() {
         return pred;
     }
+    public static void resetCounter(){
+        counter=65;
+    }
 
     public char getLabel() {
         return this.label;

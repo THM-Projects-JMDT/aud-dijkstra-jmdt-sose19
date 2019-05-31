@@ -81,6 +81,8 @@ public class Main extends Application {
 
 
         random.setOnAction(event -> {
+            clear();
+            Node.resetCounter();
             Generator g = new Generator();
             graph = new Graph();
             graph=g.generateGraph();
@@ -94,6 +96,7 @@ public class Main extends Application {
         });
 
         standard.setOnAction(event -> {
+            clear();
             standard();
         });
 
@@ -108,6 +111,16 @@ public class Main extends Application {
 
  */
 
+    }
+
+    private void clear(){
+        circles = new ArrayList<>();
+        lines = new HashMap<>();
+        labeleCircles = new ArrayList<>();
+        labelLines = new ArrayList<>();
+        group.getChildren().clear();
+        group.getChildren().removeAll();
+        buttons();
     }
 
     private void standard(){
@@ -145,9 +158,6 @@ public class Main extends Application {
     }
 
     private void newGraph(Node n1, Node n2){
-        group.getChildren().removeAll();
-        group.getChildren().clear();
-        buttons();
         for (Circle circle :circles) {
             group.getChildren().add(circle);
         }
