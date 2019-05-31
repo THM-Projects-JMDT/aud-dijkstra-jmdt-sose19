@@ -16,8 +16,8 @@ public class Generator {
         for(int i = 0;i<randomfor;i++){
             nodes[i]=graph.addNode(r.nextInt(1080),r.nextInt(720));
         }
-        node1=nodes[randomfor-5];
-        node2=nodes[randomfor-6];
+        node1=nodes[randomfor-2];
+        node2=nodes[randomfor-3];
         for(int i = 0;i<randomfor2;i++) {
             Node x= nodes[r.nextInt(randomfor-1)];
             Node y= nodes[r.nextInt(randomfor-1)];
