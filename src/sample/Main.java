@@ -91,9 +91,9 @@ public class Main extends Application {
         topGroup.getChildren().add(standard);
         standard.setTranslateY(60);
 
-        Button loop = new Button("Start");
-        group.getChildren().add(standard);
-        standard.setTranslateY(90);
+        /*Button loop = new Button("Start");
+        topGroup.getChildren().add(standard);
+        standard.setTranslateY(90);*/
 
         buttonGo.setOnAction(event -> {
             note.setText("");
@@ -129,7 +129,7 @@ public class Main extends Application {
             standard();
         });
 
-        loop.setOnAction(event -> {
+        /*loop.setOnAction(event -> {
             if(looping) {
                 loop.setText("Stop");
             } else {
@@ -138,7 +138,6 @@ public class Main extends Application {
 
             looping = !looping;
         });
-        /*
             scene.setOnMouseClicked(event -> {
                 int x = (int) Math.round(event.getX());
                 int y = (int) Math.round(event.getY());
@@ -147,7 +146,7 @@ public class Main extends Application {
                 group.getChildren().add(circles.get(circles.size() - 1));
             });
 
- */
+        */
     }
 
     private void clear(){
