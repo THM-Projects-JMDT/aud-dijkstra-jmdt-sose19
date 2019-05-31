@@ -73,6 +73,14 @@ public class Main extends Application {
             buttons();
             graph = new Graph();
             centerGroup.setOnMouseClicked(event -> {
+                if(connect) {
+                    if(!(from == start || from == end)) {
+                        circles.get(from).setFill(Color.BLACK);
+                    }
+                    from = null;
+                    connect = false;
+                    return;
+                }
                 if(finished) return;
                 int x = (int) Math.round(event.getX());
                 int y = (int) Math.round(event.getY());
@@ -135,9 +143,12 @@ public class Main extends Application {
         clear.setTranslateY(120);
 
         startbutton();
+        disableButtons();
 
         buttonGo.setOnAction(event -> {
-            gogo();
+            if(finished) {
+                gogo();
+            }
         });
 
 
@@ -145,7 +156,7 @@ public class Main extends Application {
             clear();
             Generator g = new Generator();
             graph = new Graph();
-            graph=g.generateGraph();
+            graph = g.generateGraph();
             for(Node n: graph.getNodes()){
                 createCircle(n);
             }
@@ -163,7 +174,6 @@ public class Main extends Application {
         clear.setOnAction(event -> {
             clear();
         });
-        disableButtons();
     }
 
     private void disableButtons() {
@@ -189,7 +199,7 @@ public class Main extends Application {
         labelLines = new HashMap<>();
         centerGroup.getChildren().clear();
         centerGroup.getChildren().removeAll();
-        buttons();
+  //      buttons();
         note.setText("");
         disableButtons();
     }
@@ -261,6 +271,7 @@ public class Main extends Application {
         for (Line l:lines.values()) {
             l.setStrokeWidth(2);
             centerGroup.getChildren().add(l);
+            l.toBack();
         }
         for (Label label: labelCircles.values()) {
             centerGroup.getChildren().add(label);
@@ -274,8 +285,10 @@ public class Main extends Application {
         setIterator = path.getUpdatedNodes().iterator();
         startbutton();
 
-        circles.get(n1).setRadius(7);
-        circles.get(n2).setRadius(7);
+        circles.get(n1).setFill(Color.YELLOWGREEN);
+        circles.get(n2).setFill(Color.BLUEVIOLET);
+        enableButtons();
+        finished = true;
     }
 
 
@@ -284,14 +297,14 @@ public class Main extends Application {
         Label labelCircle = new Label(String.valueOf(node.toString()));
         circle.setOnMouseEntered(event -> {
             Paint c = circle.getFill();
-            if(c.equals(Color.LIGHTGREEN) || c.equals(Color.BLUEVIOLET) || c.equals(Color.PURPLE)) {
+            if(c.equals(Color.LIGHTGREEN) || c.equals(Color.BLUEVIOLET) || c.equals(Color.YELLOWGREEN)) {
                 return;
             }
             circle.setFill(Color.GREY);
         });
         circle.setOnMouseExited(event -> {
             Paint c = circle.getFill();
-            if(c.equals(Color.LIGHTGREEN) || c.equals(Color.BLUEVIOLET) || c.equals(Color.PURPLE)) {
+            if(c.equals(Color.LIGHTGREEN) || c.equals(Color.BLUEVIOLET) || c.equals(Color.YELLOWGREEN)) {
                 return;
             }
             circle.setFill(Color.BLACK);
@@ -354,13 +367,13 @@ public class Main extends Application {
 
     private void setStart(Node n) {
         start = n;
-        circles.get(n).setFill(Color.BLUEVIOLET);
+        circles.get(n).setFill(Color.YELLOWGREEN);
         startSelected = true;
     }
 
     private void setEnd(Node n) {
         end = n;
-        circles.get(n).setFill(Color.PURPLE);
+        circles.get(n).setFill(Color.BLUEVIOLET);
         initializePlay();
     }
 
@@ -394,6 +407,7 @@ public class Main extends Application {
     private void createLine(Node node1, Node node2) {
         Edge e = graph.link(node1, node2);
         Line line = new Line(node1.getX(),node1.getY(),node2.getX(),node2.getY());
+        line.setStrokeWidth(2);
         line.setOnMouseClicked(event -> {
             event.consume();
         });
