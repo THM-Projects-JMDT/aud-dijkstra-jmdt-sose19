@@ -10,7 +10,7 @@ public class Generator {
 
     public Graph generateGraph(){
         Graph graph = new Graph();
-        int randomfor = r.nextInt(20)+10;
+        int randomfor = r.nextInt(12)+5;
         int randomfor2 = r.nextInt(randomfor*3)+10;
         Node[] nodes = new Node[randomfor];
         for(int i = 0;i<randomfor;i++){
@@ -28,7 +28,6 @@ public class Generator {
             Edge e = new Edge(x, y);
             for(Edge g: graph.getEdges()){
                 if(e.equals(g)) {
-                    i--;
                     continue;
                 }
             }
