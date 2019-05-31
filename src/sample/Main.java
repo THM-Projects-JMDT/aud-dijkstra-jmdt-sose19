@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -22,7 +23,7 @@ import dijkstra.*;
 import java.io.IOException;
 import java.util.*;
 
-public class Main extends Application {
+public class Main extends Application  {
 
     private Stage primaryStage;
     private Map<Edge, Line> lines = new HashMap<>();
@@ -37,8 +38,11 @@ public class Main extends Application {
     private Group group;
     private boolean switcher;
     private boolean först;
-    private boolean looping;
+    private boolean looping=true;
+    private Looping looping2;
     private Label note = new Label("");
+    public boolean running=true;
+
 
     @Override
     public void start(Stage primaryStage){
@@ -83,20 +87,11 @@ public class Main extends Application {
         standard.setTranslateY(60);
 
         Button loop = new Button("Start");
-        group.getChildren().add(standard);
-        standard.setTranslateY(90);
+        group.getChildren().add(loop);
+        loop.setTranslateY(90);
 
         buttonGo.setOnAction(event -> {
-            note.setText("");
-            if (edgeIterator.hasNext() && switcher && !först) {
-                markLine(edgeIterator.next(), Color.ORANGERED);
-            } else if (setIterator.hasNext() ) {
-                updateLabels(setIterator.next());
-                först = false;
-            } else {
-                markOptimalPath(opt);
-            }
-            switcher = !switcher;
+            gogo();
         });
 
 
@@ -123,8 +118,11 @@ public class Main extends Application {
         loop.setOnAction(event -> {
             if(looping) {
                 loop.setText("Stop");
+                looping2=new Looping(this);
+                looping2.start();
             } else {
                 loop.setText("Start");
+                looping2.running=false;
             }
 
             looping = !looping;
@@ -186,6 +184,19 @@ public class Main extends Application {
         newGraph(node2,node7);
     }
 
+    public void gogo(){
+        note.setText("");
+        if (edgeIterator.hasNext() && switcher && !först) {
+            markLine(edgeIterator.next(), Color.ORANGERED);
+        } else if (setIterator.hasNext() ) {
+            updateLabels(setIterator.next());
+            först = false;
+        } else {
+            markOptimalPath(opt);
+        }
+        switcher = !switcher;
+    }
+
     private void newGraph(Node n1, Node n2){
         for (Circle circle :circles.values()) {
             group.getChildren().add(circle);
@@ -227,7 +238,7 @@ public class Main extends Application {
         lines.get(e).setStrokeWidth(5);
     }
 
-    private void updateLabels(Set<Node> nodes) {
+    public void updateLabels(Set<Node> nodes) {
         if (nodes.isEmpty()) {
             note.setText("keine Nachbarn");
             return;
