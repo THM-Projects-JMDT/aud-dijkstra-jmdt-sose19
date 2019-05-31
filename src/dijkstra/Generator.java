@@ -8,10 +8,11 @@ public class Generator {
     public Node node1;
     public Node node2;
 
+
     public Graph generateGraph(){
         Graph graph = new Graph();
-        int randomfor = r.nextInt(12)+5;
-        int randomfor2 = r.nextInt(randomfor*3)+10;
+        int randomfor = r.nextInt(4)+5;
+        int randomfor2 = r.nextInt(randomfor*3)+5;
         Node[] nodes = new Node[randomfor];
         for(int i = 0;i<randomfor;i++){
             nodes[i]=graph.addNode(r.nextInt(1080),r.nextInt(720));
