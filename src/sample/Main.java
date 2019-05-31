@@ -1,7 +1,6 @@
 package sample;
 
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -10,9 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
@@ -23,7 +20,10 @@ import dijkstra.*;
 import java.io.IOException;
 import java.util.*;
 
-public class Main extends Application  {
+import static javafx.scene.paint.Color.rgb;
+
+public class Main extends Application {
+
 
     private Stage primaryStage;
     private Map<Edge, Line> lines = new HashMap<>();
@@ -36,13 +36,13 @@ public class Main extends Application  {
     private Path path;
     private List<Edge> opt;
     private Group group;
+    private Group topGroup;
+    private Group rightGroup;
     private boolean switcher;
     private boolean först;
     private boolean looping=true;
     private Looping looping2;
     private Label note = new Label("");
-    public boolean running=true;
-
 
     @Override
     public void start(Stage primaryStage){
@@ -54,8 +54,15 @@ public class Main extends Application  {
         try{
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("sample.fxml"));
             Parent root = loader.load();
+            BorderPane borderPane = new BorderPane();
+            topGroup = new Group();
+            rightGroup = new Group();
             group = new Group();
-            Scene scene = new Scene(group, 1080,720);
+            createCaption();
+            borderPane.setTop(topGroup);
+            borderPane.setRight(rightGroup);
+            borderPane.setCenter(group);
+            Scene scene = new Scene(borderPane, 1920,720);
             buttons();
 
             primaryStage.setScene(scene);
@@ -76,14 +83,14 @@ public class Main extends Application  {
         switcher = true;
         först = true;
         Button buttonGo = new Button("Weiter machen");
-        group.getChildren().add(buttonGo);
+        topGroup.getChildren().add(buttonGo);
 
         Button random = new Button("Neuer Graph");
-        group.getChildren().add(random);
+        topGroup.getChildren().add(random);
         random.setTranslateY(30);
 
         Button standard = new Button("Standard Graph");
-        group.getChildren().add(standard);
+        topGroup.getChildren().add(standard);
         standard.setTranslateY(60);
 
         Button loop = new Button("Start");
@@ -184,6 +191,18 @@ public class Main extends Application  {
         newGraph(node2,node7);
     }
 
+    private void createCaption(){
+        Label labelRed = new Label("hi");
+        labelRed.setBackground(new Background(new BackgroundFill(rgb(236,172,180), CornerRadii.EMPTY, Insets.EMPTY)));
+        labelRed.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(3), new BorderWidths(1))));
+        rightGroup.getChildren().add(labelRed);
+        Label labelBlue = new Label("hi");
+        labelBlue.setBackground(new Background(new BackgroundFill(rgb(143,198,240), CornerRadii.EMPTY, Insets.EMPTY)));
+        labelBlue.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(3), new BorderWidths(1))));
+        rightGroup.getChildren().add(labelBlue);
+        labelBlue.setTranslateY(30);
+    }
+
     public void gogo(){
         note.setText("");
         if (edgeIterator.hasNext() && switcher && !först) {
@@ -217,10 +236,8 @@ public class Main extends Application  {
         edgeIterator = path.getPath().iterator();
         setIterator = path.getUpdatedNodes().iterator();
 
-        circles.get(n1).setFill(Color.YELLOW);
-        circles.get(n1).setStroke(Color.BLACK);
-        circles.get(n2).setFill(Color.YELLOW);
-        circles.get(n2).setStroke(Color.BLACK);
+        circles.get(n1).setRadius(7);
+        circles.get(n2).setRadius(7);
     }
 
 
@@ -238,7 +255,7 @@ public class Main extends Application  {
         lines.get(e).setStrokeWidth(5);
     }
 
-    public void updateLabels(Set<Node> nodes) {
+    private void updateLabels(Set<Node> nodes) {
         if (nodes.isEmpty()) {
             note.setText("keine Nachbarn");
             return;
@@ -246,7 +263,7 @@ public class Main extends Application  {
         nodes.forEach( n -> {
             Label l = labelCircles.get(circles.get(n));
             l.setText(n.toString());
-            l.setTextFill(Color.RED);
+            l.setBackground(new Background(new BackgroundFill(rgb(233,79,100), CornerRadii.EMPTY, Insets.EMPTY)));
         });
     }
 
@@ -260,13 +277,15 @@ public class Main extends Application  {
     }
 
     private void attachLabelToCircle(Circle circle, Label label){
-        label.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        label.setBackground(new Background(new BackgroundFill(rgb(236,172,180), CornerRadii.EMPTY, Insets.EMPTY)));
+        label.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(3), new BorderWidths(1))));
         label.layoutXProperty().bind((circle.centerXProperty().add(10)));
         label.layoutYProperty().bind((circle.centerYProperty().add(-10)));
     }
 
     private void attachLabelToLine(Line line, Label label) {
-        label.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        label.setBackground(new Background(new BackgroundFill(rgb(143,198,240), CornerRadii.EMPTY, Insets.EMPTY)));
+        label.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(3), new BorderWidths(1))));
         label.layoutXProperty().bind((line.endXProperty().add(line.startXProperty())).divide(2));
         label.layoutYProperty().bind((line.endYProperty().add(line.startYProperty())).divide(2));
     }
