@@ -192,6 +192,8 @@ public class Main extends Application {
         startSelected = false;
         endSelected = false;
         finished = false;
+        switcher = false;
+        först = true;
         Node.resetCounter();
         circles = new HashMap<>();
         lines = new HashMap<>();
@@ -435,6 +437,8 @@ public class Main extends Application {
         for(Edge e : edges) {
             markLine(e, Color.BLUE);
         }
+        switcher = false;
+        först = true;
         disableButtons();
     }
     public static void main(String[] args) {
