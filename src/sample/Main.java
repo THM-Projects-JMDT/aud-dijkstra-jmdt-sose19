@@ -1,7 +1,6 @@
 package sample;
 
 import javafx.application.Application;
-import javafx.beans.property.ObjectProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
@@ -11,7 +10,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
@@ -34,7 +32,7 @@ public class Main extends Application {
     private Iterator<Set<Node>> setIterator;
     private Path path;
     private List<Edge> opt;
-    private Pane group;
+    private Pane centerGroup;
     private Group topGroup;
     private Group rightGroup;
     private boolean switcher;
@@ -62,21 +60,21 @@ public class Main extends Application {
             BorderPane borderPane = new BorderPane();
             topGroup = new Group();
             rightGroup = new Group();
-            group = new Pane();
+            centerGroup = new Pane();
             createCaption();
             borderPane.setTop(topGroup);
             borderPane.setRight(rightGroup);
-            borderPane.setCenter(group);
+            borderPane.setCenter(centerGroup);
             Scene scene = new Scene(borderPane, 1920,1080);
             buttons();
             graph = new Graph();
-            group.setOnMouseClicked(event -> {
+            centerGroup.setOnMouseClicked(event -> {
                 int x = (int) Math.round(event.getX());
                 int y = (int) Math.round(event.getY());
                 Node n = new Node(x,y);
                 createCircle(n);
-                group.getChildren().add(circles.get(n));
-                group.getChildren().add(labelCircles.get(circles.get(n)));
+                centerGroup.getChildren().add(circles.get(n));
+                centerGroup.getChildren().add(labelCircles.get(circles.get(n)));
             });
 
             primaryStage.setScene(scene);
@@ -113,7 +111,7 @@ public class Main extends Application {
 
     private void buttons(){
         note.setTranslateX(500);
-        group.getChildren().add(note);
+        centerGroup.getChildren().add(note);
         switcher = true;
         först = true;
         Button buttonGo = new Button("Weiter machen");
@@ -127,7 +125,11 @@ public class Main extends Application {
         topGroup.getChildren().add(standard);
         standard.setTranslateY(60);
 
+        Button clear = new Button("Löschen");
+        topGroup.getChildren().add(clear);
+        clear.setTranslateY(120);
 
+        startbutton();
 
         buttonGo.setOnAction(event -> {
             gogo();
@@ -152,6 +154,10 @@ public class Main extends Application {
             clear();
             standard();
         });
+
+        clear.setOnAction(event -> {
+            clear();
+        });
     }
 
     private void clear(){
@@ -160,8 +166,8 @@ public class Main extends Application {
         lines = new HashMap<>();
         labelCircles = new HashMap<>();
         labelLines = new HashMap<>();
-        group.getChildren().clear();
-        group.getChildren().removeAll();
+        centerGroup.getChildren().clear();
+        centerGroup.getChildren().removeAll();
         buttons();
         note.setText("");
     }
@@ -227,18 +233,18 @@ public class Main extends Application {
 
     private void newGraph(Node n1, Node n2){
         for (Circle circle :circles.values()) {
-            group.getChildren().add(circle);
+            centerGroup.getChildren().add(circle);
         }
 
         for (Line l:lines.values()) {
             l.setStrokeWidth(2);
-            group.getChildren().add(l);
+            centerGroup.getChildren().add(l);
         }
         for (Label label: labelCircles.values()) {
-            group.getChildren().add(label);
+            centerGroup.getChildren().add(label);
         }
         for (Label label: labelLines.values()) {
-            group.getChildren().add(label);
+            centerGroup.getChildren().add(label);
         }
         path=new Path();
         opt = graph.findShortestPath(n1, n2, path);
@@ -290,8 +296,11 @@ public class Main extends Application {
                     return;
                 }
                 createLine(from, to);
-                group.getChildren().add(lines.get(new Edge(from, to)));
-                group.getChildren().add(labelLines.get(lines.get(new Edge(from, to))));
+                Edge e = new Edge(from, to);
+                Line l = lines.get(e);
+                centerGroup.getChildren().add(l);
+                l.toBack();
+                centerGroup.getChildren().add(labelLines.get(l));
                 circles.get(from).setFill(Color.BLACK);
                 from = null;
                 to = null;
