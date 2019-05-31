@@ -45,6 +45,7 @@ public class Graph implements IGraph {
         PriorityQueue<Node> q = new PriorityQueue<>();
         Node next;
         start.setDistance(0);
+        path.addNodeSet(Set.of(start));
         q.offer(start);
         while(!q.isEmpty()) {
             next = q.poll();
@@ -57,6 +58,7 @@ public class Graph implements IGraph {
                 return getAllPred(end, list);
             }
             Map<Node, Edge> neighbours = getNeighbours(next);
+            Set<Node> neighboursSet = new HashSet<>();
             for(Node n : neighbours.keySet()) {
                 double newDistance = next.getDistance() + neighbours.get(n).getDistance();
                 if(newDistance < n.getDistance()) {
@@ -64,7 +66,9 @@ public class Graph implements IGraph {
                     n.setDistance(newDistance);
                     q.offer(n);
                 }
+                neighboursSet.add(n.clone());
             }
+            path.addNodeSet(neighboursSet);
         }
         reset();
         return new ArrayList<Edge>();
