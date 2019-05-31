@@ -37,6 +37,7 @@ public class Main extends Application {
     private Group group;
     private boolean switcher;
     private boolean först;
+    private boolean looping;
     private Label note = new Label("");
 
     @Override
@@ -81,6 +82,10 @@ public class Main extends Application {
         group.getChildren().add(standard);
         standard.setTranslateY(60);
 
+        Button loop = new Button("Start");
+        group.getChildren().add(standard);
+        standard.setTranslateY(90);
+
         buttonGo.setOnAction(event -> {
             note.setText("");
             if (edgeIterator.hasNext() && switcher && !först) {
@@ -115,6 +120,15 @@ public class Main extends Application {
             standard();
         });
 
+        loop.setOnAction(event -> {
+            if(looping) {
+                loop.setText("Stop");
+            } else {
+                loop.setText("Start");
+            }
+
+            looping = !looping;
+        });
         /*
             scene.setOnMouseClicked(event -> {
                 int x = (int) Math.round(event.getX());
@@ -125,7 +139,6 @@ public class Main extends Application {
             });
 
  */
-
     }
 
     private void clear(){
