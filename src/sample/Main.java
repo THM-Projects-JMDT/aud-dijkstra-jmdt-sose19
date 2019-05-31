@@ -37,7 +37,8 @@ public class Main extends Application {
     private Group rightGroup;
     private boolean switcher;
     private boolean först;
-    private boolean looping;
+    private boolean looping=true;
+    private Looping looping2;
     private Label note = new Label("");
     private Node from;
     private Node to;
@@ -104,23 +105,12 @@ public class Main extends Application {
         topGroup.getChildren().add(standard);
         standard.setTranslateY(60);
 
-        Button start = new Button("Weiter");
-        topGroup.getChildren().add(start);
-        /*Button loop = new Button("Start");
-        topGroup.getChildren().add(standard);
-        standard.setTranslateY(90);*/
+        Button loop = new Button("Start");
+        group.getChildren().add(loop);
+        loop.setTranslateY(90);
 
         buttonGo.setOnAction(event -> {
-            note.setText("");
-            if (edgeIterator.hasNext() && switcher && !först) {
-                markLine(edgeIterator.next(), Color.ORANGERED);
-            } else if (setIterator.hasNext() ) {
-                updateLabels(setIterator.next());
-                först = false;
-            } else {
-                markOptimalPath(opt);
-            }
-            switcher = !switcher;
+            gogo();
         });
 
 
@@ -144,24 +134,19 @@ public class Main extends Application {
             standard();
         });
 
-        /*loop.setOnAction(event -> {
+        loop.setOnAction(event -> {
             if(looping) {
                 loop.setText("Stop");
+                looping2=new Looping(this);
+                looping2.start();
             } else {
                 loop.setText("Start");
+                looping2.running=false;
             }
 
             looping = !looping;
         });
-            scene.setOnMouseClicked(event -> {
-                int x = (int) Math.round(event.getX());
-                int y = (int) Math.round(event.getY());
-                Node n = new Node(x,y);
-                createCircle(n);
-                group.getChildren().add(circles.get(circles.size() - 1));
-            });
 
-        */
     }
 
     private void clear(){
@@ -219,6 +204,19 @@ public class Main extends Application {
         labelBlue.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(3), new BorderWidths(1))));
         rightGroup.getChildren().add(labelBlue);
         labelBlue.setTranslateY(30);
+    }
+
+    public void gogo(){
+        note.setText("");
+        if (edgeIterator.hasNext() && switcher && !först) {
+            markLine(edgeIterator.next(), Color.ORANGERED);
+        } else if (setIterator.hasNext() ) {
+            updateLabels(setIterator.next());
+            först = false;
+        } else {
+            markOptimalPath(opt);
+        }
+        switcher = !switcher;
     }
 
     private void newGraph(Node n1, Node n2){
