@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.beans.property.ObjectProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
@@ -12,6 +13,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
@@ -218,8 +220,9 @@ public class Main extends Application {
             return;
         }
         nodes.forEach( n -> {
-            labelCircles.get(circles.get(n)).setText(n.toString());
-            System.out.println(n.toString());
+            Label l = labelCircles.get(circles.get(n));
+            l.setText(n.toString());
+            l.setTextFill(Color.RED);
         });
     }
 
