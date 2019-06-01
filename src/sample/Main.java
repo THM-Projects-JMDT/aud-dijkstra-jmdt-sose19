@@ -3,6 +3,7 @@ package sample;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -13,6 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import dijkstra.*;
 
@@ -39,8 +41,7 @@ public class Main extends Application {
     private Button buttonGo, standard, random, clear, loop;
     private boolean switcher;
     private boolean först;
-    private boolean looping=true;
-    private Looping looping2= new Looping(this);
+    private Looping looping = new Looping(this);
     private Label note = new Label("");
     private Node from;
     private Node to;
@@ -65,11 +66,11 @@ public class Main extends Application {
             topGroup = new Group();
             rightGroup = new Group();
             centerGroup = new Pane();
-            createCaption();
             borderPane.setTop(topGroup);
             borderPane.setRight(rightGroup);
             borderPane.setCenter(centerGroup);
-            Scene scene = new Scene(borderPane, 1920,1080);
+            Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+            Scene scene = new Scene(borderPane, primaryScreenBounds.getWidth(),primaryScreenBounds.getHeight());
             buttons();
             graph = new Graph();
             centerGroup.setOnMouseClicked(event -> {
@@ -105,22 +106,27 @@ public class Main extends Application {
         loop = new Button("Start");
         topGroup.getChildren().add(loop);
         loop.setTranslateY(90);
-        looping2.running=false;
+        looping.running=false;
 
         loop.setOnAction(event -> {
-            if(looping) {
-                loop.setText("Stop");
-                looping2= new Looping(this);
-                looping2.start();
+            if(looping.running) {
+                stopLoop();
             } else {
-                loop.setText("Start");
-                looping2.running=false;
+                startLoop();
             }
-
-            looping = !looping;
         });
     }
 
+    private void stopLoop() {
+        loop.setText("Start");
+        looping.running=false;
+    }
+
+    private void startLoop() {
+        loop.setText("Stop");
+        looping = new Looping(this);
+        looping.start();
+    }
 
     private void buttons(){
         note.setTranslateX(500);
@@ -204,6 +210,7 @@ public class Main extends Application {
   //      buttons();
         note.setText("");
         disableButtons();
+        stopLoop();
     }
 
     private void standard(){
@@ -241,11 +248,11 @@ public class Main extends Application {
     }
 
     private void createCaption(){
-        Label labelRed = new Label("hi");
+        Label labelRed = new Label("");
         labelRed.setBackground(new Background(new BackgroundFill(rgb(236,172,180), CornerRadii.EMPTY, Insets.EMPTY)));
         labelRed.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(3), new BorderWidths(1))));
         rightGroup.getChildren().add(labelRed);
-        Label labelBlue = new Label("hi");
+        Label labelBlue = new Label("");
         labelBlue.setBackground(new Background(new BackgroundFill(rgb(143,198,240), CornerRadii.EMPTY, Insets.EMPTY)));
         labelBlue.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(3), new BorderWidths(1))));
         rightGroup.getChildren().add(labelBlue);
@@ -390,8 +397,10 @@ public class Main extends Application {
     }
 
     private void markLine(Edge e, Color c) {
-        lines.get(e).setStroke(c);
-        lines.get(e).setStrokeWidth(5);
+        if(lines.get(e) != null) {
+            lines.get(e).setStroke(c);
+            lines.get(e).setStrokeWidth(5);
+        }
     }
 
     private void updateLabels(Set<Node> nodes) {
