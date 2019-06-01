@@ -3,6 +3,7 @@ package sample;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -13,6 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import dijkstra.*;
 
@@ -69,7 +71,8 @@ public class Main extends Application {
             borderPane.setTop(topGroup);
             borderPane.setRight(rightGroup);
             borderPane.setCenter(centerGroup);
-            Scene scene = new Scene(borderPane, 1920,1080);
+            Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+            Scene scene = new Scene(borderPane, primaryScreenBounds.getWidth(),primaryScreenBounds.getHeight());
             buttons();
             graph = new Graph();
             centerGroup.setOnMouseClicked(event -> {
