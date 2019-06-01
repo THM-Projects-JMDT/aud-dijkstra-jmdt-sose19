@@ -103,9 +103,10 @@ public class Main extends Application {
     }
 
     private void startbutton(){
-        loop = new Button("Start");
+        loop = new Button("AUTO-START");
+        loop.setStyle("-fx-min-width: 170");
         topGroup.getChildren().add(loop);
-        loop.setTranslateY(90);
+        loop.setTranslateY(30);
         looping.running=false;
 
         loop.setOnAction(event -> {
@@ -118,12 +119,12 @@ public class Main extends Application {
     }
 
     private void stopLoop() {
-        loop.setText("Start");
+        loop.setText("AUTO-START");
         looping.running=false;
     }
 
     private void startLoop() {
-        loop.setText("Stop");
+        loop.setText("STOPP");
         looping = new Looping(this);
         looping.start();
     }
@@ -133,20 +134,26 @@ public class Main extends Application {
         centerGroup.getChildren().add(note);
         switcher = true;
         först = true;
-        buttonGo = new Button("Weiter machen");
+        buttonGo = new Button("WEITER");
+        buttonGo.setStyle("-fx-min-width: 170");
+
         topGroup.getChildren().add(buttonGo);
 
-        random = new Button("Random Graph");
+        random = new Button("ZUFALLSGENERATOR");
+        random.setStyle("-fx-min-width: 170");
         topGroup.getChildren().add(random);
-        random.setTranslateY(30);
-
+        random.setTranslateY(60);
+    /*
         standard = new Button("Standard Graph");
         topGroup.getChildren().add(standard);
         standard.setTranslateY(60);
 
-        clear = new Button("Löschen");
+     */
+
+        clear = new Button("LÖSCHEN");
+        clear.setStyle("-fx-min-width: 170");
         topGroup.getChildren().add(clear);
-        clear.setTranslateY(120);
+        clear.setTranslateY(90);
 
         startbutton();
         disableButtons();
@@ -171,12 +178,12 @@ public class Main extends Application {
             }
             newGraph(g.node1,g.node2);
         });
-
+    /*
         standard.setOnAction(event -> {
             clear();
             standard();
         });
-
+    */
         clear.setOnAction(event -> {
             clear();
         });
