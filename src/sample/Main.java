@@ -194,7 +194,7 @@ public class Main extends Application {
         startSelected = false;
         endSelected = false;
         finished = false;
-        switcher = false;
+        switcher = true;
         först = true;
         Node.resetCounter();
         circles = new HashMap<>();
