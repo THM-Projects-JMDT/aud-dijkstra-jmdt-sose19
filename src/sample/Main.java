@@ -266,11 +266,11 @@ public class Main extends Application {
         Label label = new Label("Legende:");
         label.setFont(new Font(18));
         vbox.getChildren().add(label);
-        Label labelRed = new Label("Abstand zum Startpunkt");
+        Label labelRed = new Label(" Abstand zum Startpunkt ");
         labelRed.setBackground(new Background(new BackgroundFill(rgb(233,79,100), CornerRadii.EMPTY, Insets.EMPTY)));
         labelRed.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(3), new BorderWidths(1))));
         vbox.getChildren().add(labelRed);
-        Label labelBlue = new Label("Strecke zw. zwei Punkten");
+        Label labelBlue = new Label(" Strecke zw. zwei Punkten ");
         labelBlue.setBackground(new Background(new BackgroundFill(rgb(143,198,240), CornerRadii.EMPTY, Insets.EMPTY)));
         labelBlue.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(3), new BorderWidths(1))));
         vbox.getChildren().add(labelBlue);
