@@ -305,6 +305,21 @@ public class Main extends Application {
         hboxLineBlue.getChildren().add(lineBlueLable);
         vbox.getChildren().add(hboxLineBlue);
 
+        HBox hboxStartPoint = new HBox();
+        Circle circle = new Circle(0,0,10);
+        circle.setFill(Color.YELLOWGREEN);
+        hboxStartPoint.getChildren().add(circle);
+        Label circleLable = new Label("  Startpunkt");
+        hboxStartPoint.getChildren().add(circleLable);
+        vbox.getChildren().add(hboxStartPoint);
+
+        HBox hboxEndPoint = new HBox();
+        Circle circle1 = new Circle(0,0,10);
+        circle1.setFill(Color.BLUEVIOLET);
+        hboxEndPoint.getChildren().add(circle1);
+        Label circle1Lable = new Label("  Endpunkt");
+        hboxEndPoint.getChildren().add(circle1Lable);
+        vbox.getChildren().add(hboxEndPoint);
     }
 
     public void gogo(){
