@@ -393,8 +393,10 @@ public class Main extends Application {
     }
 
     private void markLine(Edge e, Color c) {
-        lines.get(e).setStroke(c);
-        lines.get(e).setStrokeWidth(5);
+        if(lines.get(e) != null) {
+            lines.get(e).setStroke(c);
+            lines.get(e).setStrokeWidth(5);
+        }
     }
 
     private void updateLabels(Set<Node> nodes) {
