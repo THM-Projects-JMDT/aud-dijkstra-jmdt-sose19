@@ -1,9 +1,9 @@
 package sample;
 
 import javafx.application.Application;
-import javafx.beans.property.ObjectProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -16,6 +16,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import dijkstra.*;
 
@@ -30,20 +31,29 @@ public class Main extends Application {
     private Map<Edge, Line> lines = new HashMap<>();
     private Map<Node, Circle> circles = new HashMap<>();
     private Map<Circle, Label> labelCircles = new HashMap<>();
-    private List<Label> labelLines = new ArrayList<>();
+    private Map<Line,Label> labelLines = new HashMap<>();
     private Graph graph;
     private Iterator<Edge> edgeIterator;
     private Iterator<Set<Node>> setIterator;
     private Path path;
     private List<Edge> opt;
-    private Group group;
+    private Pane centerGroup;
     private Group topGroup;
     private Group rightGroup;
+    private Button buttonGo, standard, random, clear, loop;
     private VBox vbox;
     private boolean switcher;
     private boolean först;
-    private boolean looping;
+    private Looping looping = new Looping(this);
     private Label note = new Label("");
+    private Node from;
+    private Node to;
+    private Node start;
+    private Node end;
+    private boolean startSelected;
+    private boolean endSelected;
+    private boolean connect;
+    private boolean finished;
 
     @Override
     public void start(Stage primaryStage){
@@ -58,17 +68,36 @@ public class Main extends Application {
             BorderPane borderPane = new BorderPane();
             topGroup = new Group();
             rightGroup = new Group();
-            group = new Group();
+            centerGroup = new Pane();
             vbox = new VBox();
             vbox.setPadding(new Insets(50,30,0,0));
             vbox.setSpacing(10.0);
             rightGroup.getChildren().add(vbox);
             borderPane.setTop(topGroup);
             borderPane.setRight(rightGroup);
-            borderPane.setCenter(group);
+            borderPane.setCenter(centerGroup);
+            Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
             Scene scene = new Scene(borderPane, 1920,720);
-            createCaption();
             buttons();
+            createCaption();
+            graph = new Graph();
+            centerGroup.setOnMouseClicked(event -> {
+                if(connect) {
+                    if(!(from == start || from == end)) {
+                        circles.get(from).setFill(Color.BLACK);
+                    }
+                    from = null;
+                    connect = false;
+                    return;
+                }
+                if(finished) return;
+                int x = (int) Math.round(event.getX());
+                int y = (int) Math.round(event.getY());
+                Node n = new Node(x,y);
+                createCircle(n);
+                centerGroup.getChildren().add(circles.get(n));
+                centerGroup.getChildren().add(labelCircles.get(circles.get(n)));
+            });
 
             primaryStage.setScene(scene);
             primaryStage.show();
@@ -81,47 +110,74 @@ public class Main extends Application {
         }
     }
 
+    private void startbutton(){
+        loop = new Button("AUTO-START");
+        loop.setStyle("-fx-min-width: 170");
+        topGroup.getChildren().add(loop);
+        loop.setTranslateY(30);
+        looping.running=false;
+
+        loop.setOnAction(event -> {
+            if(looping.running) {
+                stopLoop();
+            } else {
+                startLoop();
+            }
+        });
+    }
+
+    private void stopLoop() {
+        loop.setText("AUTO-START");
+        looping.running=false;
+    }
+
+    private void startLoop() {
+        loop.setText("STOPP");
+        looping = new Looping(this);
+        looping.start();
+    }
 
     private void buttons(){
         note.setTranslateX(500);
-        group.getChildren().add(note);
+        centerGroup.getChildren().add(note);
         switcher = true;
         först = true;
-        Button buttonGo = new Button("Weiter machen");
+        buttonGo = new Button("WEITER");
+        buttonGo.setStyle("-fx-min-width: 170");
+
         topGroup.getChildren().add(buttonGo);
 
-        Button random = new Button("Neuer Graph");
+        random = new Button("ZUFALLSGENERATOR");
+        random.setStyle("-fx-min-width: 170");
         topGroup.getChildren().add(random);
-        random.setTranslateY(30);
-
-        Button standard = new Button("Standard Graph");
+        random.setTranslateY(60);
+    /*
+        standard = new Button("Standard Graph");
         topGroup.getChildren().add(standard);
         standard.setTranslateY(60);
 
-        /*Button loop = new Button("Start");
-        topGroup.getChildren().add(standard);
-        standard.setTranslateY(90);*/
+     */
+
+        clear = new Button("LÖSCHEN");
+        clear.setStyle("-fx-min-width: 170");
+        topGroup.getChildren().add(clear);
+        clear.setTranslateY(90);
+
+        startbutton();
+        disableButtons();
 
         buttonGo.setOnAction(event -> {
-            note.setText("");
-            if (edgeIterator.hasNext() && switcher && !först) {
-                markLine(edgeIterator.next(), Color.ORANGERED);
-            } else if (setIterator.hasNext() ) {
-                updateLabels(setIterator.next());
-                först = false;
-            } else {
-                markOptimalPath(opt);
+            if(finished) {
+                gogo();
             }
-            switcher = !switcher;
         });
 
 
         random.setOnAction(event -> {
             clear();
-            Node.resetCounter();
             Generator g = new Generator();
             graph = new Graph();
-            graph=g.generateGraph();
+            graph = g.generateGraph();
             for(Node n: graph.getNodes()){
                 createCircle(n);
             }
@@ -130,41 +186,46 @@ public class Main extends Application {
             }
             newGraph(g.node1,g.node2);
         });
-
+    /*
         standard.setOnAction(event -> {
             clear();
             standard();
         });
-
-        /*loop.setOnAction(event -> {
-            if(looping) {
-                loop.setText("Stop");
-            } else {
-                loop.setText("Start");
-            }
-
-            looping = !looping;
+    */
+        clear.setOnAction(event -> {
+            clear();
         });
-            scene.setOnMouseClicked(event -> {
-                int x = (int) Math.round(event.getX());
-                int y = (int) Math.round(event.getY());
-                Node n = new Node(x,y);
-                createCircle(n);
-                group.getChildren().add(circles.get(circles.size() - 1));
-            });
-
-        */
     }
 
+    private void disableButtons() {
+        buttonGo.setDisable(true);
+        loop.setDisable(true);
+    }
+
+    private void enableButtons() {
+        buttonGo.setDisable(false);
+        loop.setDisable(false);
+    }
     private void clear(){
+        connect = false;
+        start = null;
+        end = null;
+        startSelected = false;
+        endSelected = false;
+        finished = false;
+        switcher = true;
+        först = true;
+        Node.resetCounter();
         circles = new HashMap<>();
         lines = new HashMap<>();
         labelCircles = new HashMap<>();
-        labelLines = new ArrayList<>();
-        group.getChildren().clear();
-        group.getChildren().removeAll();
-        buttons();
+        labelLines = new HashMap<>();
+        centerGroup.getChildren().clear();
+        centerGroup.getChildren().removeAll();
+  //      buttons();
         note.setText("");
+        disableButtons();
+        stopLoop();
     }
 
     private void standard(){
@@ -246,43 +307,148 @@ public class Main extends Application {
 
     }
 
+    public void gogo(){
+        note.setText("");
+        if (edgeIterator.hasNext() && switcher && !först) {
+            markLine(edgeIterator.next(), Color.ORANGERED);
+        } else if (setIterator.hasNext() ) {
+            updateLabels(setIterator.next());
+            först = false;
+        } else {
+            markOptimalPath(opt);
+        }
+        switcher = !switcher;
+    }
+
     private void newGraph(Node n1, Node n2){
         for (Circle circle :circles.values()) {
-            group.getChildren().add(circle);
+            centerGroup.getChildren().add(circle);
         }
 
         for (Line l:lines.values()) {
             l.setStrokeWidth(2);
-            group.getChildren().add(l);
+            centerGroup.getChildren().add(l);
+            l.toBack();
         }
         for (Label label: labelCircles.values()) {
-            group.getChildren().add(label);
+            centerGroup.getChildren().add(label);
         }
-        for (Label label: labelLines) {
-            group.getChildren().add(label);
+        for (Label label: labelLines.values()) {
+            centerGroup.getChildren().add(label);
         }
         path=new Path();
         opt = graph.findShortestPath(n1, n2, path);
         edgeIterator = path.getPath().iterator();
         setIterator = path.getUpdatedNodes().iterator();
+        startbutton();
 
-        circles.get(n1).setRadius(7);
-        circles.get(n2).setRadius(7);
+        circles.get(n1).setFill(Color.YELLOWGREEN);
+        circles.get(n2).setFill(Color.BLUEVIOLET);
+        enableButtons();
+        finished = true;
     }
 
 
     private void createCircle(Node node) {
-        Circle circle = new Circle(node.getX(),node.getY(),5);
+        Circle circle = new Circle(node.getX(),node.getY(),10);
         Label labelCircle = new Label(String.valueOf(node.toString()));
+        circle.setOnMouseEntered(event -> {
+            Paint c = circle.getFill();
+            if(c.equals(Color.LIGHTGREEN) || c.equals(Color.BLUEVIOLET) || c.equals(Color.YELLOWGREEN)) {
+                return;
+            }
+            circle.setFill(Color.GREY);
+        });
+        circle.setOnMouseExited(event -> {
+            Paint c = circle.getFill();
+            if(c.equals(Color.LIGHTGREEN) || c.equals(Color.BLUEVIOLET) || c.equals(Color.YELLOWGREEN)) {
+                return;
+            }
+            circle.setFill(Color.BLACK);
+        });
+        circle.setOnMouseClicked(event -> {
+            if(finished) return;
+            if(!connect) {
+                setFrom(node);
+            } else {
+                to = node;
+                if(to == from) {
+                    if(!startSelected) {
+                        setStart(node);
+                    } else if(!endSelected){
+                        setEnd(node);
+                    }
+                    connect = false;
+                    event.consume();
+                    return;
+                }
+                setTo(node);
+            }
+            event.consume();
+        });
         circles.put(node, circle);
         graph.addNode(node);
         labelCircles.put(circle, labelCircle);
         attachLabelToCircle(circle,labelCircle);
     }
 
+    private void setFrom(Node n) {
+        from = n;
+        Circle c = circles.get(n);
+        if(!(n == start || n == end)) {
+            c.setFill(Color.LIGHTGREEN);
+        }
+        connect = true;
+    }
+
+    private void setTo(Node n) {
+        to = n;
+        Circle c = circles.get(from);
+        if(!(from == start || from == end)) {
+            c.setFill(Color.BLACK);
+        }
+        setLineFromTo();
+    }
+
+    private void setLineFromTo() {
+        createLine(from, to);
+        Edge e = new Edge(from, to);
+        Line l = lines.get(e);
+        centerGroup.getChildren().add(l);
+        l.toBack();
+        centerGroup.getChildren().add(labelLines.get(l));
+        from = null;
+        to = null;
+        connect = false;
+    }
+
+    private void setStart(Node n) {
+        start = n;
+        circles.get(n).setFill(Color.YELLOWGREEN);
+        startSelected = true;
+    }
+
+    private void setEnd(Node n) {
+        end = n;
+        circles.get(n).setFill(Color.BLUEVIOLET);
+        initializePlay();
+    }
+
+    private void initializePlay() {
+        path = new Path();
+        opt = graph.findShortestPath(start, end, path);
+        edgeIterator = path.getPath().iterator();
+        setIterator = path.getUpdatedNodes().iterator();
+        endSelected = true;
+        finished = true;
+        enableButtons();
+    }
+
     private void markLine(Edge e, Color c) {
-        lines.get(e).setStroke(c);
-        lines.get(e).setStrokeWidth(5);
+        if(lines.get(e) != null) {
+            lines.get(e).setStroke(c);
+            lines.get(e).setStrokeWidth(5);
+        }
     }
 
     private void updateLabels(Set<Node> nodes) {
@@ -300,9 +466,13 @@ public class Main extends Application {
     private void createLine(Node node1, Node node2) {
         Edge e = graph.link(node1, node2);
         Line line = new Line(node1.getX(),node1.getY(),node2.getX(),node2.getY());
+        line.setStrokeWidth(2);
+        line.setOnMouseClicked(event -> {
+            event.consume();
+        });
         Label labelLine = new Label(Math.round(e.getDistance()) + "");
         lines.put(e, line);
-        labelLines.add(labelLine);
+        labelLines.put(line, labelLine);
         attachLabelToLine(line,labelLine);
     }
 
@@ -324,6 +494,9 @@ public class Main extends Application {
         for(Edge e : edges) {
             markLine(e, Color.BLUE);
         }
+        switcher = false;
+        först = true;
+        disableButtons();
     }
     public static void main(String[] args) {
         launch(args);
