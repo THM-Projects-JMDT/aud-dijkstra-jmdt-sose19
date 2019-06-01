@@ -41,8 +41,7 @@ public class Main extends Application {
     private Button buttonGo, standard, random, clear, loop;
     private boolean switcher;
     private boolean först;
-    private boolean looping=true;
-    private Looping looping2= new Looping(this);
+    private Looping looping = new Looping(this);
     private Label note = new Label("");
     private Node from;
     private Node to;
@@ -107,10 +106,10 @@ public class Main extends Application {
         loop = new Button("Start");
         topGroup.getChildren().add(loop);
         loop.setTranslateY(90);
-        looping2.running=false;
+        looping.running=false;
 
         loop.setOnAction(event -> {
-            if(looping2.running) {
+            if(looping.running) {
                 stopLoop();
             } else {
                 startLoop();
@@ -120,13 +119,13 @@ public class Main extends Application {
 
     private void stopLoop() {
         loop.setText("Start");
-        looping2.running=false;
+        looping.running=false;
     }
 
     private void startLoop() {
         loop.setText("Stop");
-        looping2 = new Looping(this);
-        looping2.start();
+        looping = new Looping(this);
+        looping.start();
     }
 
     private void buttons(){
