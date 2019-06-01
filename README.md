@@ -18,3 +18,12 @@ Graphen manuell per Maus-Klicks oder per Zufallsgenerator erstellen lassen.
 Per Knopfdruck lässt sich anschließend durch Markierung der entsprechenden Kanten
 schrittweise zurückverfolgen, wie genau der Algorithmus den optimalen Weg 
 zwischen zwei Knoten findet.
+
+Selbsterstellter Graph:
+![selbsterstellter Graph](/images/dijkstra_AuD.png)
+
+Zufallsgenerierter Graph:
+![zufallsgenerierter Graph](/images/dijkstra_random.png)
+
+Nachdem der Algorithmus einmal durchlief (der blau markierte Weg ist der optimale Weg):
+![Graph nach Algorithmus](/images/dijkstra_finished.png)
