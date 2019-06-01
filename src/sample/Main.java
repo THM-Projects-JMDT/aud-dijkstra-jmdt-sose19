@@ -14,6 +14,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import dijkstra.*;
 
@@ -37,6 +39,7 @@ public class Main extends Application {
     private Group group;
     private Group topGroup;
     private Group rightGroup;
+    private VBox vbox;
     private boolean switcher;
     private boolean först;
     private boolean looping;
@@ -56,11 +59,15 @@ public class Main extends Application {
             topGroup = new Group();
             rightGroup = new Group();
             group = new Group();
-            createCaption();
+            vbox = new VBox();
+            vbox.setPadding(new Insets(50,30,0,0));
+            vbox.setSpacing(10.0);
+            rightGroup.getChildren().add(vbox);
             borderPane.setTop(topGroup);
             borderPane.setRight(rightGroup);
             borderPane.setCenter(group);
             Scene scene = new Scene(borderPane, 1920,720);
+            createCaption();
             buttons();
 
             primaryStage.setScene(scene);
@@ -195,15 +202,48 @@ public class Main extends Application {
     }
 
     private void createCaption(){
-        Label labelRed = new Label("hi");
-        labelRed.setBackground(new Background(new BackgroundFill(rgb(236,172,180), CornerRadii.EMPTY, Insets.EMPTY)));
+        Label label = new Label("Legende:");
+        label.setFont(new Font(18));
+        vbox.getChildren().add(label);
+        Label labelRed = new Label("Abstand zum Startpunkt");
+        labelRed.setBackground(new Background(new BackgroundFill(rgb(233,79,100), CornerRadii.EMPTY, Insets.EMPTY)));
         labelRed.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(3), new BorderWidths(1))));
-        rightGroup.getChildren().add(labelRed);
-        Label labelBlue = new Label("hi");
+        vbox.getChildren().add(labelRed);
+        Label labelBlue = new Label("Strecke zw. zwei Punkten");
         labelBlue.setBackground(new Background(new BackgroundFill(rgb(143,198,240), CornerRadii.EMPTY, Insets.EMPTY)));
         labelBlue.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(3), new BorderWidths(1))));
-        rightGroup.getChildren().add(labelBlue);
-        labelBlue.setTranslateY(30);
+        vbox.getChildren().add(labelBlue);
+
+        HBox hboxLineRed = new HBox();
+        VBox vboxLineRed = new VBox();
+        Line lineWhite = new Line(50,0,100,0);
+        lineWhite.setStroke(Color.WHITE);
+        lineWhite.setStrokeWidth(5);
+        Line lineRed = new Line(50,50,100, 50);
+        lineRed.setStroke(Color.ORANGERED);
+        lineRed.setStrokeWidth(5);
+        vboxLineRed.getChildren().add(lineWhite);
+        vboxLineRed.getChildren().add(lineRed);
+        hboxLineRed.getChildren().add(vboxLineRed);
+        Label lineRedLable = new Label("  bestrittener Weg");
+        hboxLineRed.getChildren().add(lineRedLable);
+        vbox.getChildren().add(hboxLineRed);
+
+        HBox hboxLineBlue = new HBox();
+        VBox vboxLineBlue = new VBox();
+        Line lineWhite1 = new Line(50,100,100,100);
+        lineWhite1.setStroke(Color.WHITE);
+        lineWhite1.setStrokeWidth(5);
+        Line lineBlue = new Line(50,150,100, 150);
+        lineBlue.setStroke(Color.BLUE);
+        lineBlue.setStrokeWidth(5);
+        vboxLineBlue.getChildren().add(lineWhite1);
+        vboxLineBlue.getChildren().add(lineBlue);
+        hboxLineBlue.getChildren().add(vboxLineBlue);
+        Label lineBlueLable = new Label("  kürzester Weg");
+        hboxLineBlue.getChildren().add(lineBlueLable);
+        vbox.getChildren().add(hboxLineBlue);
+
     }
 
     private void newGraph(Node n1, Node n2){
