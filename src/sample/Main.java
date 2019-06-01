@@ -110,19 +110,24 @@ public class Main extends Application {
         looping2.running=false;
 
         loop.setOnAction(event -> {
-            if(looping) {
-                loop.setText("Stop");
-                looping2= new Looping(this);
-                looping2.start();
+            if(looping2.running) {
+                stopLoop();
             } else {
-                loop.setText("Start");
-                looping2.running=false;
+                startLoop();
             }
-
-            looping = !looping;
         });
     }
 
+    private void stopLoop() {
+        loop.setText("Start");
+        looping2.running=false;
+    }
+
+    private void startLoop() {
+        loop.setText("Stop");
+        looping2 = new Looping(this);
+        looping2.start();
+    }
 
     private void buttons(){
         note.setTranslateX(500);
@@ -206,6 +211,7 @@ public class Main extends Application {
   //      buttons();
         note.setText("");
         disableButtons();
+        stopLoop();
     }
 
     private void standard(){
