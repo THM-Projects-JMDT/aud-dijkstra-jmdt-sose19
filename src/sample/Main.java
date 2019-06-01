@@ -67,7 +67,6 @@ public class Main extends Application {
             topGroup = new Group();
             rightGroup = new Group();
             centerGroup = new Pane();
-            createCaption();
             borderPane.setTop(topGroup);
             borderPane.setRight(rightGroup);
             borderPane.setCenter(centerGroup);
@@ -244,11 +243,11 @@ public class Main extends Application {
     }
 
     private void createCaption(){
-        Label labelRed = new Label("hi");
+        Label labelRed = new Label("");
         labelRed.setBackground(new Background(new BackgroundFill(rgb(236,172,180), CornerRadii.EMPTY, Insets.EMPTY)));
         labelRed.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(3), new BorderWidths(1))));
         rightGroup.getChildren().add(labelRed);
-        Label labelBlue = new Label("hi");
+        Label labelBlue = new Label("");
         labelBlue.setBackground(new Background(new BackgroundFill(rgb(143,198,240), CornerRadii.EMPTY, Insets.EMPTY)));
         labelBlue.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(3), new BorderWidths(1))));
         rightGroup.getChildren().add(labelBlue);
