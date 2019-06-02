@@ -1,7 +1,6 @@
 package visualization;
 
 import javafx.application.Platform;
-import sample.Main;
 
 public class Looping extends Thread {
 
