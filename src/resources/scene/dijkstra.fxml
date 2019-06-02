@@ -17,7 +17,7 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Edit">
                     <items>
-                        <MenuItem fx:id="btnMenRnd" mnemonicParsing="false" onAction="#random" text="Zufalsgenerator" />
+                        <MenuItem fx:id="btnMenRnd" mnemonicParsing="false" onAction="#random" text="Zufallsgenerator" />
                         <MenuItem fx:id="btnMenClear" mnemonicParsing="false" onAction="#clear" text="Löschen" />
                     </items>
                 </Menu>
