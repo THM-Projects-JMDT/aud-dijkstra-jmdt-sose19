@@ -1,13 +1,11 @@
 package dijkstra;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Path {
     private List<Edge> edges = new ArrayList<>();
     private List<Set<Node>> updatedNodes = new ArrayList<>();
+
     public List<Edge> getPath() {
         return edges;
     }

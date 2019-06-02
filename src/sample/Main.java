@@ -286,7 +286,7 @@ public class Main extends Application {
         vboxLineRed.getChildren().add(lineWhite);
         vboxLineRed.getChildren().add(lineRed);
         hboxLineRed.getChildren().add(vboxLineRed);
-        Label lineRedLable = new Label("  bestrittener Weg");
+        Label lineRedLable = new Label("  beschrittener Weg");
         hboxLineRed.getChildren().add(lineRedLable);
         vbox.getChildren().add(hboxLineRed);
 
