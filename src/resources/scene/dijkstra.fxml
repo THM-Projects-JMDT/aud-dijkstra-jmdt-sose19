@@ -4,7 +4,6 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visualization.MenuController">
@@ -24,13 +23,9 @@
                 </Menu>
             </menus>
         </MenuBar>
-        <HBox prefHeight="579.0" prefWidth="Infinity">
+        <HBox prefHeight="579.0" prefWidth="Infinity" VBox.vgrow="ALWAYS">
               <fx:include fx:id="btn" minWidth="-Infinity" prefWidth="309.0" source="buttons.fxml" />
-         <Pane minWidth="-Infinity" prefWidth="1302.0">
-            <children>
-                  <fx:include fx:id="graph" minWidth="-Infinity" source="graph.fxml" />
-            </children>
-         </Pane>
+            <fx:include fx:id="graph" minWidth="400.0" source="graph.fxml" />
             <VBox prefHeight="200.0" prefWidth="100.0">
                 <children>
                     <fx:include fx:id="caption" source="caption.fxml" />
