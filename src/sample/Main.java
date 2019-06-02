@@ -42,6 +42,7 @@ public class Main extends Application {
     private Group rightGroup;
     private Button buttonGo, standard, random, clear, loop;
     private VBox vbox;
+    private VBox vbox1;
     private boolean switcher;
     private boolean först;
     private Looping looping = new Looping(this);
@@ -72,7 +73,11 @@ public class Main extends Application {
             vbox = new VBox();
             vbox.setPadding(new Insets(50,30,0,0));
             vbox.setSpacing(10.0);
+            vbox1 = new VBox();
+            vbox1.setPadding(new Insets(300,30,0,0));
+            vbox1.setSpacing(10.0);
             rightGroup.getChildren().add(vbox);
+            rightGroup.getChildren().add(vbox1);
             borderPane.setTop(topGroup);
             borderPane.setRight(rightGroup);
             borderPane.setCenter(centerGroup);
@@ -80,6 +85,7 @@ public class Main extends Application {
             Scene scene = new Scene(borderPane, 1920,720);
             buttons();
             createCaption();
+            explanation();
             graph = new Graph();
             centerGroup.setOnMouseClicked(event -> {
                 if(connect) {
@@ -263,10 +269,10 @@ public class Main extends Application {
     }
 
     private void createCaption(){
-        Label label = new Label("Legende:");
-        label.setFont(new Font(18));
-        vbox.getChildren().add(label);
-        Label labelRed = new Label(" Abstand zum Startpunkt ");
+        Label headline = new Label("LEGENDE:");
+        headline.setFont(new Font(14));
+        vbox.getChildren().add(headline);
+        Label labelRed = new Label("  Abstand zum Startpunkt ");
         labelRed.setBackground(new Background(new BackgroundFill(rgb(233,79,100), CornerRadii.EMPTY, Insets.EMPTY)));
         labelRed.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(3), new BorderWidths(1))));
         vbox.getChildren().add(labelRed);
@@ -320,6 +326,14 @@ public class Main extends Application {
         Label circle1Lable = new Label("  Endpunkt");
         hboxEndPoint.getChildren().add(circle1Lable);
         vbox.getChildren().add(hboxEndPoint);
+    }
+
+    public void explanation(){
+        Label headline = new Label("ERKLÄRUNG:");
+        headline.setFont(new Font(14));
+        vbox1.getChildren().add(headline);
+        Label content1 = new Label("Mit einem Klick auf die Oberfläche wird ein neuer\nPunkt erstellt. Wenn man eine Linie ziehen will, wählt\nman den Startpunkt aus, indem man auf diesen klickt.\nDen Endpunkt wählt man daraufhin auch mit einem\nKlick aus. Wenn man einen Punkt doppelt anklickt,\nwird er zum Startpunkt, also grünlich.\nWenn man im Anschluss noch einen Punkt\ndoppelt anklickt, wird dieser zum Endpunkt,\nalso violett. Nun kann man mit 'AUTO-Start' den\nAlgorithmus durchlaufen lassen oder mit 'Weiter'\ndiesen Schritt für Schritt durchgehen. Alternativ\nkann man sich auch mit 'Zufallsgenerator', einen\nzufälligen Graphen erstellen lassen.");
+        vbox1.getChildren().add(content1);
     }
 
     public void gogo(){
