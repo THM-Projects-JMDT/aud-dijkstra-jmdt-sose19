@@ -62,7 +62,6 @@ public class GraphState {
 
     public void setFrom(Node from) {
         this.form = from;
-        System.out.println("s " + from);
     }
 
     public Node getFrom() {
