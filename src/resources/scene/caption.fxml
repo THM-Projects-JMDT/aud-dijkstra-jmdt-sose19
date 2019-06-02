@@ -8,7 +8,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefWidth="100.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="0.0" prefWidth="309.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label text="LEGENDE:">
          <font>
@@ -88,7 +88,7 @@
             <Circle fill="#33e418" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
             <Label text="Startpunkt">
                <HBox.margin>
-                  <Insets left="5.0" />
+                  <Insets bottom="20.0" left="5.0" />
                </HBox.margin>
                <font>
                   <Font size="14.0" />

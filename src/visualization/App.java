@@ -34,7 +34,7 @@ public class App extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/scene/dijkstra.fxml"));
         primaryStage.setTitle("Dijkstra");
-        primaryStage.setScene(new Scene(root, 1920,1080));
+        primaryStage.setScene(new Scene(root, 1920,720));
         primaryStage.show();
     }
 

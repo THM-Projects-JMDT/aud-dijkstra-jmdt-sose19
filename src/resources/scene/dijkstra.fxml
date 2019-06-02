@@ -12,18 +12,18 @@
             <menus>
                 <Menu mnemonicParsing="false" text="File">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Close"/>
+                        <MenuItem mnemonicParsing="false" text="Close" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Edit">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Zufalsgenerator"/>
-                        <MenuItem mnemonicParsing="false" text="Löschen"/>
+                        <MenuItem mnemonicParsing="false" text="Zufalsgenerator" />
+                        <MenuItem mnemonicParsing="false" text="Löschen" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="About MyHelloApp"/>
+                        <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
                     </items>
                 </Menu>
             </menus>
@@ -31,11 +31,12 @@
         <HBox prefHeight="579.0" prefWidth="Infinity">
             <VBox prefHeight="200.0" prefWidth="100.0">
                 <children>
-                    <fx:include fx:id="btn" source="buttons.fxml"/>
-                    <fx:include fx:id="caption" source="caption.fxml"/>
+                    <fx:include fx:id="btn" source="buttons.fxml" />
+                    <fx:include fx:id="caption" source="caption.fxml" />
+                    <fx:include fx:id="explanantion" source="explanantion.fxml" />
                 </children>
             </VBox>
-            <fx:include fx:id="graph" source="graph.fxml"/>
+            <fx:include fx:id="graph" source="graph.fxml" />
         </HBox>
     </children>
 </VBox>
