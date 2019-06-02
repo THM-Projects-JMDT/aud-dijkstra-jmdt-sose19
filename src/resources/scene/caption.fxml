@@ -94,6 +94,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
+            <Circle fill="#33e418" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
          </children>
          <VBox.margin>
             <Insets bottom="5.0" />

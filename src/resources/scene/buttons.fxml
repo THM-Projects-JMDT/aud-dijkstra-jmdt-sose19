@@ -7,7 +7,7 @@
 
 <VBox prefHeight="0.0" prefWidth="309.0" spacing="10.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visualization.ButtonController">
    <children>
-      <Button fx:id="btnGo" cache="true" contentDisplay="CENTER" disable="true" mnemonicParsing="false" onAction="#go" prefHeight="44.0" prefWidth="309.0" text="Weiter" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
+      <Button fx:id="btnGo" cache="true" contentDisplay="CENTER" disable="true" mnemonicParsing="false" onAction="#go" prefHeight="44.0" prefWidth="309.0" text="WEITER" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
          <font>
             <Font name="Calibri" size="24.0" />
          </font>
@@ -20,12 +20,12 @@
             <Font name="Calibri" size="24.0" />
          </font>
       </Button>
-      <Button fx:id="btnRandom" cache="true" contentDisplay="CENTER" mnemonicParsing="false" onAction="#random" prefHeight="44.0" prefWidth="309.0" text="Zufalsgenerator" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
+      <Button fx:id="btnRandom" cache="true" contentDisplay="CENTER" mnemonicParsing="false" onAction="#random" prefHeight="44.0" prefWidth="309.0" text="ZUFALLSGENERATOR" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
          <font>
             <Font name="Calibri" size="24.0" />
          </font>
       </Button>
-      <Button fx:id="btnClear" cache="true" contentDisplay="CENTER" mnemonicParsing="false" onAction="#clear" prefHeight="44.0" prefWidth="309.0" text="Löschen" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
+      <Button fx:id="btnClear" cache="true" contentDisplay="CENTER" mnemonicParsing="false" onAction="#clear" prefHeight="44.0" prefWidth="309.0" text="LÖSCHEN" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
          <font>
             <Font name="Calibri" size="24.0" />
          </font>
