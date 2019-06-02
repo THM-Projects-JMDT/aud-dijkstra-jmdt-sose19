@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane fx:id="centerGroup" minHeight="-Infinity" onMouseClicked="#setNode" prefHeight="1080.0" prefWidth="1920" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visualization.GraphController">
+   <children>
+      <Label fx:id="error" layoutX="310.0" layoutY="14.0" textFill="#ff0b0b" />
+   </children>
+</Pane>
