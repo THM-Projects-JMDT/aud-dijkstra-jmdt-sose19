@@ -27,3 +27,18 @@ Zufallsgenerierter Graph:
 
 Nachdem der Algorithmus einmal durchlief (der blau markierte Weg ist der optimale Weg):
 ![Graph nach Algorithmus](/images/dijkstra_finished.png)
+
+## Anleitung zum Starten des Programms:
+
+### Über Terminal
+Voraussetzungen: jdk-12 und javafx-sdk-12 sind auf dem Rechner installiert. 
+1. thm-dgifu.jar runterladen.
+2. Im Terminal ins Verzeichnis wechseln, in dem sich die jar befindet.
+3. Das Programm ausführen mit dem Befehl: 
+~~~ shell
+java --module-path PATH_TO_FX --add-modules javafx.controls,javafx.fxml -jar  thm-dgifu.jar
+~~~
+(PATH_TO_FX mit dem Pfad zu javafx-sdk-12.0.1/lib ersetzen)
+
+### Über IntelliJ
+Falls JavaFX bereits auf IntelliJ eingerichtet ist, einfach das Projekt clonen und Programm starten.
