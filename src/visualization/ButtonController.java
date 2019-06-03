@@ -77,7 +77,6 @@ public class ButtonController implements Initializable {
 
     private ChangeListener<Integer> updateMaxNode = (obs, oldValue, newValue) ->  {
         Generator.setMaxNodeNum(newValue);
-        System.out.println(newValue);
     };
 
     @Override
