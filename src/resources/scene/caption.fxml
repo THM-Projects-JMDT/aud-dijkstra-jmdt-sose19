@@ -46,7 +46,7 @@
                         <Insets left="5.0" />
                      </VBox.margin>
                   </Line>
-                  <Line endX="100.0" endY="50.0" startX="50.0" startY="50.0" stroke="#ff4d00" strokeWidth="5.0">
+                  <Line endX="100.0" endY="50.0" startX="50.0" startY="50.0" stroke="ORANGERED" strokeWidth="5.0">
                      <VBox.margin>
                         <Insets left="5.0" />
                      </VBox.margin>
@@ -71,7 +71,7 @@
                         <Insets left="5.0" />
                      </VBox.margin>
                   </Line>
-                  <Line endX="100.0" endY="150.0" startX="50.0" startY="150.0" stroke="#002dcf" strokeWidth="5.0">
+                  <Line endX="100.0" endY="150.0" startX="50.0" startY="150.0" stroke="BLUE" strokeWidth="5.0">
                      <VBox.margin>
                         <Insets left="5.0" />
                      </VBox.margin>
@@ -85,10 +85,10 @@
       </HBox>
       <HBox minWidth="-Infinity" prefHeight="100.0" prefWidth="309.0">
          <children>
-            <Circle fill="#33e418" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fill="YELLOWGREEN" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
             <Label text="Startpunkt">
                <HBox.margin>
-                  <Insets bottom="20.0" left="5.0" />
+                  <Insets left="5.0" />
                </HBox.margin>
                <font>
                   <Font size="14.0" />
@@ -98,6 +98,22 @@
          <VBox.margin>
             <Insets bottom="5.0" />
          </VBox.margin>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Circle fill="BLUEVIOLET" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+            <Label text="Endpunkt">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin>
+               <padding>
+                  <Insets bottom="5.0" />
+               </padding>
+            </Label>
+         </children>
       </HBox>
    </children>
    <padding>
