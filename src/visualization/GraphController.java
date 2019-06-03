@@ -5,10 +5,12 @@ import dijkstra.Generator;
 import dijkstra.Node;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.stage.Screen;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -98,9 +100,18 @@ public class GraphController implements Initializable {
         }
     }
 
+    private void changeSceneSize() {
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        centerGroup.setPrefHeight(primaryScreenBounds.getHeight() - 20);
+        centerGroup.setPrefWidth(primaryScreenBounds.getWidth() - 638);
+        Generator.setMaxHeight((int)centerGroup.getPrefHeight() - 50);
+        Generator.setMaxWidth((int)centerGroup.getPrefWidth() - 40);
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         App.setGraphController(this);
+        changeSceneSize();
         clear();
     }
 }

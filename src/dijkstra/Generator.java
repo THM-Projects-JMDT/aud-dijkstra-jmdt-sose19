@@ -4,9 +4,15 @@ import java.util.Random;
 
 public class Generator {
     private static int maxNodeNum;
+    private static int maxWidth;
+    private static int maxHeight;
     private Random r = new Random();
     private Node start;
     private Node end;
+
+    public static void setMaxWidth(int maxLength) { Generator.maxWidth = maxLength; }
+
+    public static void setMaxHeight(int maxHeight) { Generator.maxHeight = maxHeight; }
 
     public Node getStart() { return start; }
 
@@ -20,7 +26,7 @@ public class Generator {
         int randomfor2 = r.nextInt(randomfor * 3) + 5;
         Node[] nodes = new Node[randomfor];
         for (int i = 0; i < randomfor; i++) {
-            nodes[i] = graph.addNode(r.nextInt(1080), r.nextInt(720));
+            nodes[i] = graph.addNode(r.nextInt(maxWidth), r.nextInt(maxHeight));
         }
         start = nodes[randomfor - 2];
         end = nodes[randomfor - 3];

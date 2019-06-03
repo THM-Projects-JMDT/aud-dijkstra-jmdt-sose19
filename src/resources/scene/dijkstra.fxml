@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -7,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visualization.MenuController">
+<VBox prefHeight="600.0" prefWidth="900.0" spacing="10.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visualization.MenuController">
     <children>
         <MenuBar VBox.vgrow="NEVER">
             <menus>
@@ -23,12 +24,26 @@
                     </items>
                 </Menu>
             </menus>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
         </MenuBar>
         <HBox prefHeight="579.0" prefWidth="Infinity" VBox.vgrow="ALWAYS">
               <fx:include fx:id="btn" minWidth="-Infinity" prefWidth="309.0" source="buttons.fxml" />
-         <Separator orientation="VERTICAL" prefHeight="575.0" prefWidth="0.0" />
+         <Separator orientation="VERTICAL" prefHeight="575.0" prefWidth="0.0">
+            <HBox.margin>
+               <Insets />
+            </HBox.margin>
+            <padding>
+               <Insets right="10.0" />
+            </padding>
+         </Separator>
             <fx:include fx:id="graph" minWidth="400.0" source="graph.fxml" />
-         <Separator orientation="VERTICAL" prefHeight="200.0" />
+         <Separator orientation="VERTICAL" prefHeight="200.0">
+            <padding>
+               <Insets left="10.0" />
+            </padding>
+         </Separator>
             <VBox prefHeight="200.0" prefWidth="100.0">
                 <children>
                     <fx:include fx:id="caption" source="caption.fxml" />
