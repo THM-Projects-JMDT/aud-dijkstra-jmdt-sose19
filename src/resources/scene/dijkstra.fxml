@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
@@ -25,7 +26,9 @@
         </MenuBar>
         <HBox prefHeight="579.0" prefWidth="Infinity" VBox.vgrow="ALWAYS">
               <fx:include fx:id="btn" minWidth="-Infinity" prefWidth="309.0" source="buttons.fxml" />
+         <Separator orientation="VERTICAL" prefHeight="575.0" prefWidth="0.0" />
             <fx:include fx:id="graph" minWidth="400.0" source="graph.fxml" />
+         <Separator orientation="VERTICAL" prefHeight="200.0" />
             <VBox prefHeight="200.0" prefWidth="100.0">
                 <children>
                     <fx:include fx:id="caption" source="caption.fxml" />
