@@ -70,7 +70,7 @@ public class GraphController implements Initializable {
         for (Edge e : graphState.getGraph().getEdges()) {
             drawGraph.createLine(e.getA(), e.getB());
         }
-        drawGraph.newGraph(g.node1, g.node2);
+        drawGraph.newGraph(g.getStart(), g.getEnd());
     }
 
     public void initializePlay() {
