@@ -31,10 +31,17 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/scene/dijkstra.fxml"));
-        primaryStage.setTitle("Dijkstra");
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-        Scene scene = new Scene(root, primaryScreenBounds.getWidth(),primaryScreenBounds.getHeight());
+        Scene scene = new Scene(root);
+
+        primaryStage.setTitle("Dijkstra");
         primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
+        //Set size to Fullscreen
+        primaryStage.setX(primaryScreenBounds.getMinX());
+        primaryStage.setY(primaryScreenBounds.getMinY());
+        primaryStage.setWidth(primaryScreenBounds.getWidth());
+        primaryStage.setHeight(primaryScreenBounds.getHeight());
         primaryStage.show();
     }
 
