@@ -1,3 +1,4 @@
 # ignore IntelliJ files
 .idea
 out
+META-INF
