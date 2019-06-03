@@ -2,6 +2,9 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -20,16 +23,38 @@
             <Font name="Calibri" size="24.0" />
          </font>
       </Button>
-      <Button fx:id="btnRandom" cache="true" contentDisplay="CENTER" mnemonicParsing="false" onAction="#random" prefHeight="44.0" prefWidth="309.0" text="ZUFALLSGENERATOR" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
-         <font>
-            <Font name="Calibri" size="24.0" />
-         </font>
-      </Button>
       <Button fx:id="btnClear" cache="true" contentDisplay="CENTER" mnemonicParsing="false" onAction="#clear" prefHeight="44.0" prefWidth="309.0" text="LÖSCHEN" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
          <font>
             <Font name="Calibri" size="24.0" />
          </font>
       </Button>
+      <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+         <children>
+            <Label text="ZUFÄLLIGER GRAPH" underline="true">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <HBox prefWidth="200.0">
+               <children>
+                  <Label text="MAX. KNOTEN: ">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Spinner fx:id="spinner" amountToStepBy="1" prefHeight="25.0" prefWidth="183.0" />
+               </children>
+            </HBox>
+            <Button fx:id="btnRandom" cache="true" contentDisplay="CENTER" mnemonicParsing="false" onAction="#random" prefHeight="44.0" prefWidth="309.0" text="ZUFALLSGENERATOR" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
+               <font>
+                  <Font name="Calibri" size="24.0" />
+               </font>
+            </Button>
+         </children>
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" />
+         </VBox.margin>
+      </VBox>
    </children>
    <padding>
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

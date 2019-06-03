@@ -1,9 +1,13 @@
 package visualization;
 
+import dijkstra.Generator;
+import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -32,6 +36,9 @@ public class ButtonController implements Initializable {
     void go(ActionEvent event) {
         App.getGraphController().next();
     }
+
+    @FXML
+    private Spinner<Integer> spinner;
 
     @FXML
     void loop(ActionEvent event) {
@@ -68,10 +75,19 @@ public class ButtonController implements Initializable {
         btnLoop.setDisable(true);
     }
 
+    private ChangeListener<Integer> updateMaxNode = (obs, oldValue, newValue) ->  {
+        Generator.setMaxNodeNum(newValue);
+        System.out.println(newValue);
+    };
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         App.setButtonController(this);
         looping = new Looping();
         looping.running = false;
+        SpinnerValueFactory<Integer> spinnerValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(5, 100, 10);
+        spinnerValueFactory.valueProperty().addListener(updateMaxNode);
+        Generator.setMaxNodeNum(spinnerValueFactory.getValue());
+        this.spinner.setValueFactory(spinnerValueFactory);
     }
 }
