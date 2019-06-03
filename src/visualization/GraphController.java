@@ -102,7 +102,7 @@ public class GraphController implements Initializable {
 
     private void changeSceneSize() {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-        centerGroup.setPrefHeight(primaryScreenBounds.getHeight() - 20);
+        centerGroup.setPrefHeight(primaryScreenBounds.getHeight() - 40);
         centerGroup.setPrefWidth(primaryScreenBounds.getWidth() - 638);
         Generator.setMaxHeight((int)centerGroup.getPrefHeight() - 50);
         Generator.setMaxWidth((int)centerGroup.getPrefWidth() - 40);
