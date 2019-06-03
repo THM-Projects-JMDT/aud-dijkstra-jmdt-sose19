@@ -34,35 +34,7 @@ public class GraphState {
         currentGraph = new Graph();
     }
 
-    public void setGraph(Graph graph) {
-        currentGraph = graph;
-    }
-
-    public Path getPath() {
-        return path;
-    }
-
-    public boolean finished() { return finished; }
-
-    public boolean connected() {
-        return connect;
-    }
-
-    public void changeConected(boolean to) {
-        connect = to;
-    }
-
-    public void setTo(Node to) {
-        this.to = to;
-    }
-
-    public boolean isFrom(Node node) {
-        return this.form == node;
-    }
-
-    public void setFrom(Node from) {
-        this.form = from;
-    }
+    //Getter
 
     public Node getFrom() {
         return this.form;
@@ -72,52 +44,13 @@ public class GraphState {
         return this.to;
     }
 
-    public boolean isStart(Node node) {
-        return this.start == node;
-    }
-
-    public boolean isEnd(Node node) {
-        return this.end == node;
-    }
-
     public Node getEnd() {
         return this.end;
-    }
-
-    public void setStart(Node start) {
-        this.start = start;
-    }
-
-    public void setNodeSelected(boolean b) {
-        nodeSelected = b;
-    }
-
-    public void setEnd(Node end) {
-        this.end = end;
-    }
-
-    public void setOpt(List<Edge> opt) {
-        this.opt = opt;
     }
 
     public Graph getGraph() {
         return this.currentGraph;
     }
-
-    public void iteratorInit() {
-        edgeIt =  path.getPath().iterator();
-        nodeIt = path.getUpdatedNodes().iterator();
-    }
-
-    public void changeFinished(boolean to) {
-        finished = to;
-    }
-
-    public boolean isStartSelected() {
-        return this.start != null;
-    }
-
-    public boolean isEndSelected() { return endSelected; }
 
     public Iterator<Edge> getEdgeIt() {
         return edgeIt;
@@ -135,8 +68,77 @@ public class GraphState {
         return this.start;
     }
 
+    //Setter
+
+    public void setStart(Node start) {
+        this.start = start;
+    }
+
+    public void setNodeSelected(boolean b) {
+        nodeSelected = b;
+    }
+
+    public void setEnd(Node end) {
+        this.end = end;
+    }
+
+    public void setFrom(Node from) { this.form = from; }
+
+    public void setGraph(Graph graph) {
+        currentGraph = graph;
+    }
+
+    public void setTo(Node to) {
+        this.to = to;
+    }
+
+    //Boolean Getter
+
+    public boolean finished() { return finished; }
+
+    public boolean connected() {
+        return connect;
+    }
+
+    //Change Methods
+
+    public void changeFinished(boolean to) {
+        finished = to;
+    }
+
+    public void changeConected(boolean to) {
+        connect = to;
+    }
+
     public void changeEndselected(boolean b) {
         this.endSelected = b;
+    }
+
+    //Test Methods
+
+    public boolean isFrom(Node node) {
+        return this.form == node;
+    }
+
+    public boolean isStart(Node node) {
+        return this.start == node;
+    }
+
+    public boolean isEnd(Node node) {
+        return this.end == node;
+    }
+
+    public boolean isStartSelected() {
+        return this.start != null;
+    }
+
+    public boolean isEndSelected() { return endSelected; }
+
+    //other
+
+    public void iteratorInit() {
+        edgeIt =  path.getPath().iterator();
+        nodeIt = path.getUpdatedNodes().iterator();
     }
 
     public void findShortestPath() {
