@@ -18,7 +18,7 @@
             <Insets />
          </VBox.margin>
       </Button>
-      <Button fx:id="btnLoop" cache="true" contentDisplay="CENTER" disable="true" mnemonicParsing="false" onAction="#loop" prefHeight="44.0" prefWidth="309.0" text="Auto-Start" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
+      <Button fx:id="btnLoop" cache="true" contentDisplay="CENTER" disable="true" mnemonicParsing="false" onAction="#loop" prefHeight="44.0" prefWidth="309.0" text="AUTO-START" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
          <font>
             <Font name="Calibri" size="24.0" />
          </font>
@@ -45,7 +45,7 @@
                   <Spinner fx:id="spinner" amountToStepBy="1" prefHeight="25.0" prefWidth="183.0" />
                </children>
             </HBox>
-            <Button fx:id="btnRandom" cache="true" contentDisplay="CENTER" mnemonicParsing="false" onAction="#random" prefHeight="44.0" prefWidth="309.0" text="ZUFALLSGENERATOR" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
+            <Button fx:id="btnRandom" cache="true" contentDisplay="CENTER" mnemonicParsing="false" onAction="#random" prefHeight="44.0" prefWidth="309.0" text="GENERIEREN" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
                <font>
                   <Font name="Calibri" size="24.0" />
                </font>
