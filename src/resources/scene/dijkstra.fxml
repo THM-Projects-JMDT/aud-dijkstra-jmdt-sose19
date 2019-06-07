@@ -44,7 +44,7 @@
                <Insets left="10.0" />
             </padding>
          </Separator>
-            <VBox prefHeight="200.0" prefWidth="100.0">
+            <VBox prefHeight="200.0" prefWidth="130.0">
                 <children>
                     <fx:include fx:id="caption" source="caption.fxml" />
                     <fx:include fx:id="explanantion" source="explanantion.fxml" />

@@ -49,11 +49,13 @@ public class Graph implements IGraph {
         startSet.add(start.clone());
         path.addNodeSet(startSet);
         q.offer(start);
+        path.addQueue(new PriorityQueue<>(q));
         while(!q.isEmpty()) {
             next = q.poll();
 
             if(next.getPred() != null) {
                 path.addEdge(new Edge(next.getPred().clone(), next.clone()));
+                path.addQueue(new PriorityQueue<>(q));
             }
             if(next.equals(end)) {
                 List<Edge> list = new ArrayList<>();
@@ -64,12 +66,17 @@ public class Graph implements IGraph {
             for(Node n : neighbours.keySet()) {
                 double newDistance = next.getDistance() + neighbours.get(n).getDistance();
                 if(newDistance < n.getDistance()) {
+                    double prevDist = n.getDistance();
                     n.setPred(next);
                     n.setDistance(newDistance);
-                    q.offer(n);
+                    if(prevDist == Double.MAX_VALUE) {
+                        q.offer(n);
+                    }
                 }
                 neighboursSet.add(n.clone());
             }
+            q.offer(q.poll());
+            path.addQueue(new PriorityQueue<>(q));
             path.addNodeSet(neighboursSet);
         }
         reset();

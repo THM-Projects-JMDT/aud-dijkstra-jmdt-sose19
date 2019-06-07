@@ -71,6 +71,7 @@ public class GraphController implements Initializable {
         centerGroup.getChildren().removeAll();
         init();
         App.getButtonController().stopLoop();
+        setNextNode("");
     }
 
     public void random() {
@@ -100,11 +101,15 @@ public class GraphController implements Initializable {
             drawGraph.resetNoNeighbours();
             if (graphState.getEdgeIt().hasNext() && switcher && !first) {
                 drawGraph.markLine(graphState.getEdgeIt().next(), Color.ORANGERED);
+                graphState.getQueueIt().next();
+                setNextNode("");
             } else if (graphState.getNodeIt().hasNext()) {
                 drawGraph.updateLabels(graphState.getNodeIt().next());
+                setNextNode(Character.toString(graphState.getQueueIt().next().poll().getLabel()));
                 first = false;
             } else {
                 drawGraph.markOptimalPath();
+                setNextNode("");
                 switcher = false;
                 first = true;
             }

@@ -7,6 +7,7 @@ import dijkstra.Path;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Queue;
 import java.util.Set;
 
 public class GraphState {
@@ -14,6 +15,7 @@ public class GraphState {
     private Path path;
     private Iterator<Edge> edgeIt;
     private Iterator<Set<Node>> nodeIt;
+    private Iterator<Queue<Node>> queueIt;
     private Node form;
     private Node to;
     private Node start;
@@ -58,6 +60,10 @@ public class GraphState {
 
     public Iterator<Set<Node>> getNodeIt() {
         return nodeIt;
+    }
+
+    public Iterator<Queue<Node>> getQueueIt() {
+        return queueIt;
     }
 
     public List<Edge> getOpt() {
@@ -139,6 +145,7 @@ public class GraphState {
     public void iteratorInit() {
         edgeIt =  path.getPath().iterator();
         nodeIt = path.getUpdatedNodes().iterator();
+        queueIt = path.getQueues().iterator();
     }
 
     public void findShortestPath() {
