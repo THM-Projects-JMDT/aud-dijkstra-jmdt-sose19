@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -7,10 +8,16 @@
 
 <VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visualization.ExplanationController">
    <children>
-      <Label text="ERKLÄRUNG:" wrapText="true">
+      <Label text="ERKLÄRUNG:" underline="true">
          <font>
-            <Font size="18.0" />
-         </font></Label>
-      <TextFlow fx:id="txtF" />
+            <Font size="24.0" />
+         </font>
+         <padding>
+            <Insets left="5.0" />
+         </padding></Label>
+      <TextFlow fx:id="txtF">
+         <padding>
+            <Insets left="5.0" right="5.0" />
+         </padding></TextFlow>
    </children>
 </VBox>
