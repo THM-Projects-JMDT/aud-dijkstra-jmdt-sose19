@@ -8,7 +8,9 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 
@@ -28,6 +30,12 @@ public class GraphController implements Initializable {
     private Label error;
 
     @FXML
+    private HBox nextNodeBox;
+
+    @FXML
+    private Label nextNode;
+
+    @FXML
     void setNode(MouseEvent event) {
         if(graphState.connected()) {
             if(!(graphState.isFrom(graphState.getStart()) || graphState.isFrom(graphState.getEnd()))) {
@@ -43,6 +51,10 @@ public class GraphController implements Initializable {
         Node n = new Node(x,y);
         drawGraph.createCircle(n);
         drawGraph.addCircle(n);
+    }
+
+    public void setNextNode(String nextNode) {
+        this.nextNode.setText(nextNode);
     }
 
     public void init() {
@@ -106,6 +118,7 @@ public class GraphController implements Initializable {
         centerGroup.setPrefWidth(primaryScreenBounds.getWidth() - 638);
         Generator.setMaxHeight((int)centerGroup.getPrefHeight() - 50);
         Generator.setMaxWidth((int)centerGroup.getPrefWidth() - 40);
+        nextNodeBox.setLayoutY(centerGroup.getPrefHeight() - 40);
     }
 
     @Override

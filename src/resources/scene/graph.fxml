@@ -1,16 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
 <Pane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visualization.GraphController">
    <children>
-      <Pane fx:id="centerGroup" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#setNode" prefHeight="1080.0" prefWidth="1920"/>
       <Label fx:id="error" contentDisplay="CENTER" textFill="#ff0b0b">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
+      <Pane fx:id="centerGroup" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#setNode" prefHeight="1080.0" prefWidth="1920" />
+      <HBox fx:id="nextNodeBox" translateX="-15.0">
+         <children>
+            <Label text="Nächster Knoten, der Besucht wird:">
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
+            </Label>
+            <Label fx:id="nextNode" text="Label" />
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" />
+         </padding>
+      </HBox>
    </children>
 </Pane>
